@@ -13,7 +13,7 @@ function _start($code, $type) {
   Mage::run($code, $type);
 }
 
-// Call the _start() function in dependence on the current domain.
+// Call the _start() function in dependence on the current URL.
 switch($_SERVER['HTTP_HOST']) {
   // Description
   case 'page.tld' : 
