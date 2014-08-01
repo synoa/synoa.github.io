@@ -27,4 +27,4 @@ switch($_SERVER['HTTP_HOST']) {
     break;
 }
 ```
-* **[ 3 ]** Replace `description` with a short description of the store, replace `page.tld` with your domain and replace `store_code` with the code of the store you want to start. 
+* **[ 3 ]** Replace `description` with a short description of the store, replace `page.tld` with the URL you want and replace `store_code` with the code of the store you want to start. 
