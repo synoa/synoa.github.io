@@ -1,7 +1,7 @@
 Use this if you want to change the store based on the current URL. 
 
-* [ 1 ] Open `index.php`
-* [ 2 ] Replace everything after `umask(0);` with this:
+* **[ 1 ]** Open `index.php`
+* **[ 2 ]** Replace everything after `umask(0);` with this:
 ```php
 /*
  * Start Magento using the provided <CODE>$code</CODE> and <CODE>$type</CODE>. 
@@ -27,4 +27,4 @@ switch($_SERVER['HTTP_HOST']) {
     break;
 }
 ```
-* [ 3 ] Replace `description` with a short description of the store, replace `page.tld` with your domain and replace `store_code` with the code of the store you want to start. 
+* **[ 3 ]** Replace `description` with a short description of the store, replace `page.tld` with your domain and replace `store_code` with the code of the store you want to start. 
