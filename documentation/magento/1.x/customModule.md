@@ -1,3 +1,5 @@
+This file is still in development and not tested!!!
+
 # How to setup a custom module in Magento
 
 ## Short overview
@@ -14,27 +16,62 @@ Disable your cache on if you are not developing on a live system what you should
 * Click **Select all**
 * Select in *Actions* on the right the value **disable** and click **Submit**
 
-## Creating the custom module
+If you are developing you should also enable the *developer mode* and *display error messages* in browser.
 
-The code for our customer module goes to *app/code/local* folder which is empty after clean installation of Magento
+First we will activate the developer mode for magento.
 
-There are two other folders *core* and *community*. In *core* we can find the magento source code which will be overwritten if we update our magento. So we should not store our code here. In *community* we can find the source code of modules which we downloaded with magento connect.
+Add following to the end of the **.htaccess** in your document root folder:
 
-Imagine somebody has also an idea for an *HelloWorld* module and names it also *HelloWorld*. We will get conflicts if we do not care about namespaces.
+```
+############################################
+## Enable magento developer mode
+SetEnv MAGE_IS_DEVELOPER_MODE true
+```
 
-Our vendor is *Synoa* so we create an own namespace for it.
+To display error messages remove the **#** in the index.php of the document root folder to uncomment following line
 
-Create a directory named **Synoa** in **app/code/local**
+```php
+ini_set('display_errors', 1);
+```
 
-Our custom module is called *HelloWorld* to start with it we have to 
-create a directory named **HelloWorld** in our new **namespace app/code/local/Synoa**
+## Setup a custom module
 
-Every custom module has a folder called *etc* with an *config.xml* file.
+### File Structure of an magento module
 
-* Create a folder **etc** in **app/code/local/Synoa/HelloWorld**
+The code of magento and his extensions is stored in *app/code*. There are three different folders:
+
+* core
+* community
+* local
+
+#### core
+
+In the *core* folder is all the code of magento and we will not touch it, because it will be maybe overwritten with next update and then our custom changes are gone.
+
+#### community 
+
+You can download extensions with magento connect. The code of this extensions will be stored in this folder.
+
+#### local
+
+This is the place for our code. It should be empty afer an clean installation of magento.
+
+### Create the module
+
+A moudule needs a name and a namespace to avoid naming conflicts with other modules which has the same name.
+
+Mostly you will take the name of your company as namespace. Our namespace will be *Synoa*.
+
+Create a directory **Synoa** in **app/code/local**.
+
+The name of our custom module will be *HelloWorld* so we have to create a folder **HelloWorld** in **app/code/local/Synoa**.
+
+Every module needs an *config.xml* in which we configure many things like Controllers, Helpers, Layouts and so on. This file is stored in an *etc* folder and will be autoloaded by magento after we activated the module.
+
+* Create a folder **etc** in **app/code/local/Synoa/HelloWorld/**
 * Create a file **config.xml** in **app/code/local/Synoa/HelloWorld/etc**
 
-Lets start with some code in the *config.xml* 
+In the first step we will create a module with no actions and add follwing code to the **app/code/local/Synoa/HelloWorld/etc/config.xml**
 
 ```xml
 <?xml version="1.0"?>
@@ -47,15 +84,13 @@ Lets start with some code in the *config.xml*
 </config>
 ```
 
-This lines describes our custom module. It is called *HelloWorld* in *Synoa* Namespace. The namespace and module name are connected with an underscore and the Autoloading Feature of Zend Framework will know where to find the code. Next we define the version of our custom module.
+This code is the minimum of an custom module. We define where the code lives with the line *Synoa_HelloWorld*. Magento is build up on the Zend Framework and with *Synoa_HelloWorld* the Autoloader internally replaces the **_** with an directory seperator depending on which os you are. On Unix system it will be **/**. The autoloader tries to load the code from *Synoa/HelloWorld* in all defined include paths. Finally we define a version for our module.
 
-We succesfully created our first custom module in magento. Needs a little bit more action in next chapters.
+### Activate our custom module
 
-## Activate our custom module
+Every module has an xml file in *app/etc/modules*. The name of the xml file follows the naming convention *namespace_modulname*. 
 
-Every module has an xml file in *app/etc/modules*. In this place you can also turn off an module if it is not working correctly after an update.
-
-Create an xml file called **Synoa_HelloWorld.xml** in **app/etc/modules** with following content
+Create **Synoa_HelloWorld.xml** in **app/etc/modules** with following content:
 
 ```xml
 <?xml version="1.0"?>
@@ -70,23 +105,69 @@ Create an xml file called **Synoa_HelloWorld.xml** in **app/etc/modules** with f
 </config>
 ```
 
-Here we tell Magento to activate our new customer module called *Synoa_HelloWorld* in the version 0.1.0. We have to tell magento where to find the code. Remember we have three code pools:
-
-* core
-* community
-* local
-
-We set the codepool to *local* and an *active* tag with the value *true*
+Magento will parse all xml files and read the config for our custom module which has the version *0.1.0*. The code can be found in the codepool *local* and we activate the module with the *active* tag. If we set the *active* tag to *false* our module would not be loaded.
 
 Now Our custom component is visible in Magento. Login in the backend of our magento store and click on the *system* tab. At the bottom you will find the section *Advanced* and an *Advanced* overview. There you can find all Modules which have an active tag with the value true. And also our custom Module Synoa_HelloWorld.
 
-## Add some action to our custom module
+### Disable an module
 
-To see some Action, our custom module should display *Hello magento* if we call the url http://&lt;magento&gt;/helloworld. Replace &lt;magento&gt; with your magento installation.
+If an module in production environment is not working correctly we can disable it until we fixed the bug. In the **app/etc/modules** folder we will find an xml file for every module. Open the xml file of the module which you want to disable and set the *active* tag to *false*, clear your cache and the moudle will be disabled.
 
-First we have to define the route *http://&lt;magento&gt;/helloworld* which is calling our module
+## Setting up an controller
 
-We expand our app/code/local/Synoa/etc/config.xml with a route
+The first simple action for our custom module: it should display *hello magento* in our browser. We will achive that with simple PHP Code which is placed in a controller class. I recommend to read about the MVC pattern on which Magento is build up.
+
+All controllers are placed in the *controllers* folder in our module folder. 
+
+Create a folder **controllers** in **app/code/local/Synoa/HelloWorld**
+Create a file **IndexController.php** in **app/code/local/Synoa/HelloWorld/controllers** with following content:
+
+```php
+<?php
+class Synoa_HelloWorld_IndexController extends Mage_Core_Controller_Front_Action {
+  
+  /**
+   * Prints "Hello magento"
+   * @return void
+   */
+  public function indexAction() {
+    echo 'Hello magento';
+  }
+}
+?>
+```
+
+The class name follows the naming convention for Zend Autoloading *namespace_modulname_controllername**Controller***. The classname ends always with **Controller**. We extend *Mage_Core_Controller_Front_Action* to inherit some functions which will be needed later on. 
+
+We also define a public function *indexAction* which echoes *Hello magento*. To run this code we have to setup an route which leads to this simple PHP code and executes it. 
+
+**Note: You should never output directly like in this example. Remember principle filter input and escape output. But we want to show a fast way to see some action and expand this exmaple later with the correct way.**
+
+## Setting up an Route 
+
+### Basics about routing
+
+A route is a mapping between an URL and an module. If we call http://&lt;magento&gt;/helloworld magento (replace &lt;magento&gt; with your magento installation) looks in all module configurations if a route maps to an specific module. So far we have no route defined and if we request http://&lt;magento&gt;/helloworld we get a 404 Not Found page. 
+
+### Magento Areas
+
+There are three different Magento areas:
+
+<dl>
+  <dt>frontend</dt>
+  <dd>The customer view of the magento store</dd>
+  <dt>admin</dt>
+  <dd>The backend of the magento store</dd>
+  <dt>install</dt>
+  <dd>The installation routine you done when you setup your magento instllation</dd>
+</dl>
+
+When we define a route we also have to map to a specific magento area
+
+### Creating the route
+
+Lets expand our **app/code/local/Synoa/HelloWorld/etc/config.xml** with
+
 ```xml
 <?xml version="1.0"?>
 <config>
@@ -114,9 +195,9 @@ We expand our app/code/local/Synoa/etc/config.xml with a route
 
 <dl>
   <dt>frontend</dt>
-  <dd>There are three diffenterent magento areas (frontend, admin and install). Our route map to the frontend.</dd>
+  <dd>Our route will map to the frontend.</dd>
   <dt>routers</dt>
-  <dd>In this tag we place all our routes</dd>
+  <dd>In this tag we place all our routes for the frontend magento area</dd>
   <dt>synoa_helloworld</dt>
   <dd>This is the name of our route (TODO is it better to set the namespace also in the name of the route like synoa_helloworld?)</dd>
   <dt>use</dt>
@@ -124,22 +205,28 @@ We expand our app/code/local/Synoa/etc/config.xml with a route
   <dt>args</dt>
   <dd>TODO</dd>
   <dt>module</dt>
-  <dd>This tag define which module should be used</dd>
+  <dd>This tag define which module should be mapped</dd>
   <dt>frontname</dt>
   <dd>this is the path of the url after http://&lt;magento&gt;/</dd>
 </dl>
 
-Now we mapped the route */helloworld* to our module Synoa_HelloWorld.
+Now we mapped the route */helloworld* to our module Synoa_HelloWorld and if we call http://&lt;magento&gt;/helloworld we should see *Hello magento*.
 
-### Notes about Routing
+### How this works?
 
-If you call *http://&lt;magento&gt;/route* magento will internally handle it like you requested *http://&lt;magento&gt;/route/index/index* The */index/index* thing will load the Index Controller and execute the index action method. That is an new file we need. An Index Controller with and index action method.
+If you request *http://&lt;magento&gt;/helloworld* magento will expand this URL to *http://&lt;magento&gt;/helloworld/index/index*. Lets have a closer look at this URL. It consists of 4 parts
 
-## Controllers
+http://**domain**/**route**/**controller**/**action**
 
-The route maps to our module and will call the Index Controller but it is not available yet. Lets create it in **app/code/local/Synoa/controllers** and name the file **IndexController.php** with following code:
+1. Magento will look for an route with the value *helloworld* in the frontname tag. We defined it in *app/code/local/Synoa/HelloWorld/etc/config.xml*
+2. Magento will look for an IndexController in our module folder app/code/local/Synoa/HelloWorld/controllers and yeah we have one.
+3. Magento will call the indexAction method of the controller class.
 
-```php
+So what happens if we call *http://&lt;magento&gt;/helloworld/index/goodbye*? We will get an 404 page because there is no *goodbyeAction* method in our *app/code/local/Synoa/HelloWorld/controllers/IndexController.php*
+
+Lets expand it and add some code to the IndexController:
+
+ ```php
 <?php
 class Synoa_HelloWorld_IndexController extends Mage_Core_Controller_Front_Action {
   
@@ -150,17 +237,153 @@ class Synoa_HelloWorld_IndexController extends Mage_Core_Controller_Front_Action
   public function indexAction() {
     echo 'Hello magento';
   }
+
+  ##### new code begin #####
+  
+  /**
+   * Prints "Goodbye magento"
+   * @return void
+   */
+  public function goodbyeAction() {
+    echo 'Goodbye magento';
+  }
+
+  ##### new code end #####
 }
 ?>
 ```
 
-Magento needs to autoload this class and todo this the classname follows an naming convention: *Namespace_ModuleName_ControllerName*. We extend Mage_Core_Controller_Front_Action to inherit functions for laoyut and templating. We will dive into that later. For now we just want to print "Hello magento". Second we need a function named *indexAction* which echoes *Hello magento*. Simple.
+Now if you request *http://&lt;magento&gt;/helloworld/index/goodbye* you should see *Goodbye Magento*. 
 
-Request with your browser **http://&lt;magento&gt;/helloworld** and you should see *Hello magento*. Great.
+If you change the third part of the URL (the controller) you have to create new controller. 
 
-TODO some infos more about routing and the index/index thing maybe another controller or multiple actions
+Example if you request *http://&lt;magento&gt;/helloworld/other/awesome* magento will look in *app/code/local/Synoa/HelloWorld/controllers/OtherController.php* for an *awesomeAction* method.
 
-### Helpers
+## Setup Layout and Templates
+
+Our module outpouts *Hello magento* to a blank site with no structure and it outputs the message directly with echo. In the next steps we will see how we can render the message in the store website. 
+
+### Basics
+
+The layout and template is very complex and you need a little bit practice to achieve your goals. Lets have a look at some basic informations about layouts and templates.
+
+#### Blocks
+
+We can seperate every HTML page into several blocks like Header, Sidebar, Main, Footer and so on. But we can also seperate an component like an detail view of an product to several blocks like name, description, image, sizes and so on. An block can consists of several other nested blocks. This blocks are defined in a layout file which will be loaded and rendered from an controller. Blocks can be seen as little controllers which appeals templates with the data of the model. Templates should never contain any business logic.
+
+#### Layouts
+
+With layouts you can position your blocks on the right place. Layout XML files are stored in *app/design/&lt;magento area&gt;/&gt;package&lt;/&gt;theme&gt;/layout*. Every module may define its own layout.
+
+An basic layout file starts with the *layout* tag and the first childs of this tag are called *layout handles*.
+
+Example:
+
+```xml
+<layout version="1.0">
+  <default>
+    <!-- ... -->
+  </default>
+  <helloworld_index_index>
+    <!-- ... -->
+  </helloworld_index_index>
+</layout>
+```
+
+*default* and *helloworld_index_index* are layout handles.
+
+Each layout handle updates the website layout. It may define new blocks, move or remove blocks which are included by other layout xml files or modificate existing blocks.
+
+Here is a tricky part in magento: If you request a site magento will parse all xml files and look for the default update handle and will execute it. Then magento will look for the update handle matching with the route, controller and action. So if we request http://&lt;magento&gt;/helloworld it would also call the layout handle *helloworld_index_index*
+
+### Layout elements Reference
+
+A layout handle may contain following elements:
+
+<dl>
+  <dt>label</dt>
+  <dd>Defines the label which is shown as a descriptive message in some areas of the admin panel</dd>
+  <dt>reference</dt>
+  <dd>You can reference a block which is defined in an other xml layout file to add blocks, modify attributes or to perform an action. The reference element must have a name attribute</dd>
+  <dt>block</dt>
+  <dd>Mostly it is used in a reference to create a new child block. It must have a name and a type attrbute. If it is of type core/template it can also has an template attribute</dd>
+  <dt>remove</dt>
+  <dd>Removes a block specified by the name attribute</dd>
+  <dt>action</dt>
+  <dd>Is placed in references or blocks to perform an action (TODO how to find out which actions are available)</dd>
+  <dt>update</dt>
+  <dd>Loads an existing handle into the current handle and it is like a kind of inheritance (TODO example here?)</dd>
+</dl>
+
+Puh! Many new informations here but still not enough.
+
+### Where to start?
+
+In Magento 1.9 default installation the package rwd (responsive web design) is used with the theme default. Lets have a look in the *app/design/frontend/rwd/default/layout/page.xml* file
+
+```xml
+<layout version="0.1.0">
+    <!--
+    Default layout, loads most of the pages
+    -->
+
+    <default translate="label" module="page">
+        <label>All Pages</label>
+        <block type="page/html" name="root" output="toHtml" template="page/3columns.phtml">
+        <!-- ... -->
+```
+
+We see a default layout handler (which says it is on every page) with an block named *root* with an template *page/3columns.phtml*
+
+That is our root block and this block contains many other blocks like head, after_body_start, header, breadcrumbs, left, right, content, footer and so on.
+
+In our layout we can reference this blocks and add new blocks to it. Or we can change the template of an block, but an example says more than 1000 words. 
+
+### Create the layout
+
+TODO how should we extend the layout? copy paste the old one and change it in pasted folder? With right naming convention an update should not destroy the original one.
+
+TODO the naming of layout files. 
+
+Create the file **synoa_helloworld.xml** in **app/design/frontend/rwd/default/layout** with
+
+```xml
+<?xml version="1.0"?>
+<layout version="1.0">
+  <helloworld_index_index>
+    <reference name="root">
+      <action method="setTemplate">
+        <template>synoa/helloworld/simple_page.phtml</template>
+      </action>
+    </reference>
+  </helloworld_index_index>
+</layout>
+```
+
+### Create the template
+
+### Load the layout
+
+We have a controller which extends *Mage_Core_Controller_Front_Action* and now its the time to call some inherited methods.
+
+We replace the code of our **app/code/local/Synoa/HelloWorld/controllers/IndexController.php** to 
+
+```php
+<?php
+
+class Synoa_HelloWorld_IndexController extends Mage_Core_Controller_Front_Action {
+
+  public function indexAction() {
+    $this->loadLayout();
+    $this->renderLayout();
+  }
+}
+?>
+```
+
+###############
+
+## Setting up an helper class
 
 Lets write an helper class with a function *upper* which takes a string and returns this string in uppercase. We know there is a PHP function for this use case, but it is a simple example.
 
@@ -203,4 +426,5 @@ class Synoa_HelloWorld_IndexController extends Mage_Core_Controller_Front_Action
 ?>
 ```
 
-If we request now *http://&gt;magento&lt;/helloworld* we should see "HELLO MAGENTO";
+If we request now *http://&lt;magento&gt;/helloworld* we should see "HELLO MAGENTO";
+
