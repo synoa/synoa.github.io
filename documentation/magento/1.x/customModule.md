@@ -737,29 +737,277 @@ Sometimes we want some configuration variables for an module. Magento provides a
 
 ### Create default value
 
+Lets create a defaul value first and extend our *app/code/local/Synoa/HelloWorld/etc/config.xml* file a little bit
+
+```xml
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Synoa_HelloWorld>
+      <version>0.1.0</version>
+    </Synoa_HelloWorld>
+  </modules>
+  <frontend>
+    <routers>
+      <helloworld>
+        <use>standard</use>
+        <args>
+          <module>Synoa_HelloWorld</module>
+          <frontName>helloworld</frontName>
+        </args>
+      </helloworld>
+    </routers>
+    <layout>
+      <updates>
+        <synoa_helloworld>
+          <file>synoa_helloworld.xml</file>
+        </synoa_helloworld>
+      </updates>
+    </layout>
+  </frontend>
+  <global>
+    <resources>
+      <helloworld_setup>
+        <setup>
+          <module>Synoa_HelloWorld</module>  
+        </setup>
+      </helloworld_setup>
+    </resources>
+    <models>
+      <helloworld>
+        <class>Synoa_HelloWorld_Model</class>
+        <resourceModel>helloworld_superheroes</resourceModel>
+      </helloworld>
+      <helloworld_superheroes>
+        <class>Synoa_HelloWorld_Model_Mysql4</class>
+        <entities>
+          <superheroes>
+            <table>superheroes</table>
+          </superheroes>
+        </entities>
+      </helloworld_superheroes>
+    </models>
+  </global>
+  <!-- new code begin -->
+  <default>
+    <synoa>
+      <whatsyourname>
+        <name>Dagobert</name>
+      </whatsyourname>
+    </synoa>
+  </default>
+  <!-- new code end -->
+</config>
+```
+
 ### Load it
 
-### Show it
+We want to load the default value in the controller and assign it to the template. Lets change our **app/code/local/Synoa/HelloWorld/controllers/IdexController.php** to:
+
+```php
+<?php
+
+class Synoa_HelloWorld_IndexController extends Mage_Core_Controller_Front_Action {
+
+  public function indexAction() {
+    $superHeroes = Mage::getModel('helloworld/superheroes')->getCollection();
+
+    // load the layout
+    $this->loadLayout();
+
+  // assign values to template
+    $this->getLayout()
+         ->getBlock('synoa.helloworld.helloworld')
+         ->assign('name', Mage::getStoreConfig('synoa/whatsyourname/name')) // new code
+         ->assign('heroes', $superHeroes);
+
+    // render the layout
+    $this->renderLayout();
+  }
+}
+?>
+```
+
+And we have to change our template **app/design/frontend/rwd/default/template/synoa/helloworld/helloworld.phtml** too:
+
+```php
+<h4>Hello <?php echo $this->escapeHtml($name) ?></h4>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php
+  foreach ($heroes as $hero) {
+    // create HTML
+    echo '<tr>'
+      . '<td>' . $this->escapeHtml($hero->getSuperheroes_id()) . '</td>'
+      . '<td>' . $this->escapeHtml($hero->getName()) . '</td>'
+      . '<td>' . $this->escapeHtml($hero->getMessage()) . '</td>'
+      . '</tr>';
+  }
+  ?>
+  </tbody>
+</table>
+```
+
+We replaced *Magento* in *Hello Magento* with *$name* and if we request now our site we should see *Hello Dagobert* instead of *Hello Magento*.
 
 ### Create backend section
 
-### Create backend Group
+Now we want to change this configuration variable in the backend. Magento provides some xml which we can use to create a section, a group and a field and will save it in the database in the table *core_config_data*
+
+We create a file **system.xml** in **app/code/local/Synoa/HelloWorld/etc**
+
+```xml
+<?xml version="1.0"?>
+<config>
+  <sections>
+    <synoa translate="label">
+      <label>Synoa</label>
+      <tab>general</tab>
+      <frontend_type>text</frontend_type>
+      <sort_order>1000</sort_order>
+      <show_in_default>1</show_in_default>
+      <show_in_website>1</show_in_website>
+      <show_in_store>1</show_in_store>
+    </synoa>
+  </sections>
+</config>
+```
+
+TODO explanation here of new tags see magento wiki
+
+If we go into our magento backend now and click the **System** tab we should see a new section *Synoa* in the *General* group.
+
+If we click on it we should get an 404 or access denied error. We have to create another file to set the rights of this system configuration. 
+
+Create a file **adminhtml.xml** in **app/code/local/Synoa/HelloWorld/etc**
+
+```xml
+<?xml version="1.0"?>
+<config>
+  <acl>
+    <resources>
+      <all>
+        <title>Allow Everything</title>
+      </all>
+      <admin>
+        <children>
+          <system>
+            <children>
+              <config>
+                <children>
+                  <synoa translate="title">
+                    <title>Synoa</title>
+                    <sort_order>100</sort_order>
+                  </synoa>
+                </children>
+              </config>
+            </children>
+          </system>
+        </children>
+      </admin>
+    </resources>
+  </acl>
+</config>
+```
+
+If you click now on *Synoa* in *General* section you will also get an 404 or access denied error.
+
+**YOU HAVE TO LOG OUT AND LOG IN AGAIN**
+
+If you logged in again you will get the page with no content besides an header with *synoa* but without an error.
+
+### Create a group
+
+We extend our backend section with a group *whatsyourname*. We change our **app/code/local/Synoa/HelloWorld/etc/system.xml** to
+
+<?xml version="1.0"?>
+<config>
+  <sections>
+    <synoa translate="label">
+      <label>Synoa</label>
+      <tab>general</tab>
+      <frontend_type>text</frontend_type>
+      <sort_order>1000</sort_order>
+      <show_in_default>1</show_in_default>
+      <show_in_website>1</show_in_website>
+      <show_in_store>1</show_in_store>
+      <!-- new code begin -->
+      <groups>
+        <whatsyourname translate="label">
+          <label>Whats your name</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>100</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+        </whatsyourname>
+      </groups>
+      <!-- new code end -->
+    </synoa>
+  </sections>
+</config>
+
+Now we should see in our backend a gray bar with *What is your name* and we can collapse it.
 
 ### Create field
 
+We want to create a text field where we can save our name to the config store. 
+
+Lets add an field to our group *whatsyourname*
+
+We change the **app/code/local/Synoa/HelloWorld/etc/system.xml** to
+
+```xml
+<?xml version="1.0"?>
+<config>
+  <sections>
+    <synoa translate="label">
+      <label>Synoa</label>
+      <tab>general</tab>
+      <frontend_type>text</frontend_type>
+      <sort_order>1000</sort_order>
+      <show_in_default>1</show_in_default>
+      <show_in_website>1</show_in_website>
+      <show_in_store>1</show_in_store>
+      <groups>
+        <whatsyourname translate="label">
+          <label>Whats your name</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>100</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <!-- new code begin -->
+          <fields>
+            <name translate="label">
+              <label>Name</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </name>
+          </fields>
+          <!-- new code end -->
+        </whatsyourname>
+      </groups>
+    </synoa>
+  </sections>
+</config>
+```
+
 ### Test it
 
-##################################
+Now if we collapse our group *What is your name* we can see a text input field in which we will store the value **Donald**.
 
-Going to the top 
-
-
-
-
-
-
-
-##################################
+Request *http://&lt;magento&gt;/helloworld and we should see *Hello Donald* and if we look in the database in the table *core_config_data* we should see an entry with an pathvalue of *synoa/whatsyourname/name* and the value *Donald*
 
 
 
