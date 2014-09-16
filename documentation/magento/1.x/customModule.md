@@ -1009,68 +1009,127 @@ Now if we collapse our group *What is your name* we can see a text input field i
 
 Request *http://&lt;magento&gt;/helloworld and we should see *Hello Donald* and if we look in the database in the table *core_config_data* we should see an entry with an pathvalue of *synoa/whatsyourname/name* and the value *Donald*
 
-
-
 ## Setting up an helper class
 
-Lets write an helper class with a function *upper* which takes a string and returns this string in uppercase. We know there is a PHP function for this use case, but it is a simple example.
+Lets write an helper class with a function *reverseString* which takes a string and returns this string in reversed. We know there is a PHP function *strrev* for this use case, but it is a simple example how to create and use custom helpers.
 
-First we create a new folder named **Helper** in **app/code/local/Synoa/HelloWorld**
+First we have to define Helpers in our **app/code/local/Synoa/HelloWorld/etc/config.xml** in the *global* tag:
+
+```xml
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Synoa_HelloWorld>
+      <version>0.1.0</version>
+    </Synoa_HelloWorld>
+  </modules>
+  <frontend>
+    <routers>
+      <helloworld>
+        <use>standard</use>
+        <args>
+          <module>Synoa_HelloWorld</module>
+          <frontName>helloworld</frontName>
+        </args>
+      </helloworld>
+    </routers>
+    <layout>
+      <updates>
+        <synoa_helloworld>
+          <file>synoa_helloworld.xml</file>
+        </synoa_helloworld>
+      </updates>
+    </layout>
+  </frontend>
+  <global>
+    <!-- new code begin -->
+    <helpers>
+      <helloworld>
+        <class>Synoa_HelloWorld_Helper</class>
+      </helloworld>
+    </helpers>
+    <!-- new code end -->
+    <resources>
+      <helloworld_setup>
+        <setup>
+          <module>Synoa_HelloWorld</module>  
+        </setup>
+      </helloworld_setup>
+    </resources>
+    <models>
+      <helloworld>
+        <class>Synoa_HelloWorld_Model</class>
+        <resourceModel>helloworld_superheroes</resourceModel>
+      </helloworld>
+      <helloworld_superheroes>
+        <class>Synoa_HelloWorld_Model_Mysql4</class>
+        <entities>
+          <superheroes>
+            <table>superheroes</table>
+          </superheroes>
+        </entities>
+      </helloworld_superheroes>
+    </models>
+  </global>
+  <default>
+    <synoa>
+      <whatsyourname>
+        <name>Dagobert</name>
+      </whatsyourname>
+    </synoa>
+  </default>
+</config>
+```
+
+### Create the helper
+
+We create a new folder named **Helper** in **app/code/local/Synoa/HelloWorld**
 
 In this folder we create a file **Data.php**
 
 ```php
 <?php
 class Synoa_HelloWorld_Helper_Data extends Mage_Core_Helper_Abstract {
-  /**
-   * Returns the first param in uppercase
-   * @param  String $str
-   * @return String
-   */
-  public function upper($str) {
-    return strtoupper($str);
+  public function reverseString($str) {
+    return strrev($str);
   }
 }
 ?>
 ```
 
-Okay now we will use this helper in our IndexController to print *HELLO MAGENTO*. 
+### Call the helper
+
+Okay now we will use this helper in our IndexController to reverse the *Hello*. 
 
 We change the code of **app/code/local/Synoa/HelloWorld/controllers/IndexController.php** to
 
 ```php
 <?php
+
 class Synoa_HelloWorld_IndexController extends Mage_Core_Controller_Front_Action {
-  
-  /**
-   * Prints "Hello magento"
-   * @return void
-   */
+
   public function indexAction() {
-    // echo 'Hello magento';
-    echo Mage::helper('helloworld')->upper('Hello Magento');
+    $superHeroes = Mage::getModel('helloworld/superheroes')->getCollection();
+
+    // load the layout
+    $this->loadLayout();
+
+    $savedName = Mage::getStoreConfig('synoa/whatsyourname/name');
+
+    $savedNameReversed = Mage::helper('helloworld')->reverseString($savedName);
+
+  // assign values to template
+    $this->getLayout()
+         ->getBlock('synoa.helloworld.helloworld')
+         ->assign('name', $savedNameReversed)
+         ->assign('heroes', $superHeroes);
+
+    // render the layout
+    $this->renderLayout();
   }
 }
 ?>
 ```
+Now we receive the name from the db and call the helper on it and assign the returned value to the template.
 
-If we request now *http://&lt;magento&gt;/helloworld* we should see "HELLO MAGENTO";
-
-### Magento Areas
-
-There are three different Magento areas:
-
-<dl>
-  <dt>frontend</dt>
-  <dd>The customer view of the magento store</dd>
-  <dt>admin</dt>
-  <dd>The backend of the magento store</dd>
-  <dt>install</dt>
-  <dd>The installation routine you done when you setup your magento instllation</dd>
-</dl>
-
-When we define a route we also have to map to a specific magento area
-
-NOTE for me
-
-if you extend the backend you have to log out and log in again for the section you setup the acl.
+If we request http://&lt;magento&gt;/helloworld we should see *Hello Dlanod*
