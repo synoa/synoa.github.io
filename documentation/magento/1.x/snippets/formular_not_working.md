@@ -1,4 +1,4 @@
-If a form is not working in Magento >= 1.8, the form is propably missing the "form_key" input field. You can add the missing field like this:
+If a form is not working in Magento >= 1.8, the form is propably missing the **form_key** input field. You can add the missing field like this:
 
 
 ```html
