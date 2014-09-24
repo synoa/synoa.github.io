@@ -8,6 +8,7 @@ media/xmlconnect/*
 var/cache/*
 var/locks/*
 var/log/*
+var/report/*
 var/session/*
 var/resource_config.json
 app/etc/local.xml
