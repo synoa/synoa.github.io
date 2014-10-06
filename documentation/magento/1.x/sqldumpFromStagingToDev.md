@@ -30,5 +30,5 @@ All changes are made in table **core_config_data**
 If you have multiple store views (mostly you will have)
 
 - [ ] Check base URL for every single store view
-- [ ] System->Configuration->Debug->Template Path Hints for prefered store view
-- [ ] System->configuration->Debug->Add Block Names to Hints for prefered store view
+- [ ] System -> Configuration -> Debug -> Template Path Hints for prefered store view
+- [ ] System -> configuration -> Debug -> Add Block Names to Hints for prefered store view
