@@ -24,3 +24,11 @@ All changes are made in table **core_config_data**
 - [ ] System -> Cache Management -> Select All -> Disable -> Submit
 - [ ] System -> Configuration -> Developer -> Template Settings -> Allow Symlinks = **yes** (needed for templates with modman)
 - [ ] System -> Configuration -> Developer -> Log Settings -> Enabled = **Yes**
+
+## Optional
+
+If you have multiple store views (mostly you will have)
+
+- [ ] Check base URL for every single store view
+- [ ] System->Configuration->Debug->Template Path Hints for prefered store view
+- [ ] System->configuration->Debug->Add Block Names to Hints for prefered store view
