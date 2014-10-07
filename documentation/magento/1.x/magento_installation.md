@@ -212,5 +212,5 @@ Login with ssh to the live server.
 
 ### Clone repository
 ```sh
-git clone <document root>
+git clone <url> <document root>
 ```
