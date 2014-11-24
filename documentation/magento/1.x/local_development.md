@@ -48,12 +48,10 @@ If your `DocumentRoot` exists and you open `myproject.local/` in your browser, y
 
 ## Export from production db
 
-```sql
+```bash
 # Create the backup
 mysqldump -p --create-options --lock-tables=false myproject_magento > myproject_magento_production.sql
-```
 
-```bash
 # Create an archive from your backup
 tar -czf myproject_magento_production.sql.tgz myproject_magento_production.sql
 
@@ -63,7 +61,7 @@ scp user@ip:/myproject_magento_production.sql .
 
 ## Import into local db
 
-```sql
+```bash
 mysql -uroot -p myproject_magento_local < myproject_magento_production.sql
 ```
 
