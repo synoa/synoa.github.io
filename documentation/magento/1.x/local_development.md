@@ -20,7 +20,7 @@ TRUNCATE TABLE `log_visitor_info`;
 
 ```sql
 # Retrieve the old values
-select * from core_config_data where path = "web/unsecure/base_url"
+select * from core_config_data where path = "web/unsecure/base_url";
 
 # Overwrite the old values
 update core_config_data set value = "url" where config_id = x and path = "web/unsecure/base_url";
@@ -40,7 +40,7 @@ update core_config_data set value = "url" where config_id = x and path = "web/se
 
 ```sql
 # Retrieve the old value
-select * from core_config_data where path LIKE "web/cookie/cookie_domain"
+select * from core_config_data where path LIKE "web/cookie/cookie_domain";
 
 # Overwrite the old value
 update core_config_data set value = "url" where config_id = x and path = "web/cookie/cookie_domain";
@@ -50,7 +50,7 @@ update core_config_data set value = "url" where config_id = x and path = "web/co
 
 ```sql
 # Retrieve the old value
-select * from core_config_data where path LIKE "admin/url/custom"
+select * from core_config_data where path LIKE "admin/url/custom";
 
 # Overwrite the old value
 update core_config_data set value = "url" where config_id = x and path = "admin/url/custom";
