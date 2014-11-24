@@ -1,3 +1,13 @@
+# Code
+
+Clone the project you want to work with locally to your machine. 
+
+```bash
+# Example
+cd /home/user/Development
+git clone git@github.com:synoa/myproject
+```
+
 # Host
 
 ## Local host
@@ -7,7 +17,7 @@
 # Create the host
 sudo nano /etc/hosts
 
-# Example content
+# Example
 127.0.0.1 myproject.local
 ```
 
@@ -18,7 +28,7 @@ sudo nano /etc/hosts
 # Create the VHost
 sudo nano /etc/apache2/sites-enabled/myproject.local
 
-# Example content
+# Example
 
 <VirtualHost *:80>
     ServerAlias eneo.local
