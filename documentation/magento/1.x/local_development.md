@@ -1,6 +1,6 @@
 # Host
 
-## 1. Local host
+## Local host
 
 ```bash
 
@@ -11,7 +11,7 @@ sudo nano /etc/hosts
 127.0.0.1 myproject.local
 ```
 
-2. VHost
+## VHost
 
 ```bash
 
@@ -26,7 +26,7 @@ sudo nano /etc/apache2/sites-enabled/myproject.local
 </VirtualHost>
 ```
 
-3. Reload apache
+## Reload apache
 
 ```bash
 sudo service apache2 reload
