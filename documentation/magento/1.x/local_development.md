@@ -122,7 +122,7 @@ update core_config_data set value = "url" where config_id = x and path = "admin/
 
 # Permissions
 
-Move into the root folder of your Magento installation and run the following:
+Go into the root folder of your Magento installation and run the following:
 
 ```bash
 find . -type f \-exec chmod 644 {} \;
