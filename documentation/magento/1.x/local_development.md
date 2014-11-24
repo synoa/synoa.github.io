@@ -56,7 +56,10 @@ mysqldump -p --create-options --lock-tables=false myproject_magento > myproject_
 tar -czf myproject_magento_production.sql.tgz myproject_magento_production.sql
 
 # Copy the backup to your machine
-scp user@ip:/myproject_magento_production.sql .
+scp user@ip:/myproject_magento_production.sql.tgz .
+
+# Unpack the backup on your machine
+tar -xzf myproject_magento_production.sql.tgz
 ```
 
 ## Import into local db
