@@ -1,6 +1,6 @@
 # Code
 
-Clone the project you want to work with locally to your machine. 
+Clone the project you want to work with to your local machine. 
 
 ```bash
 # Example
