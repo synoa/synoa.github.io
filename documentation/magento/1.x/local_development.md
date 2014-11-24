@@ -29,9 +29,8 @@ sudo nano /etc/hosts
 sudo nano /etc/apache2/sites-enabled/myproject.local
 
 # Example
-
 <VirtualHost *:80>
-    ServerAlias eneo.local
+    ServerAlias myproject.local
     DocumentRoot /home/user/Development/myproject
 </VirtualHost>
 ```
