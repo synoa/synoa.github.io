@@ -18,7 +18,7 @@ TRUNCATE TABLE `log_visitor_info`;
 
 ### base_url: unsecure
 
-```
+```sql
 # Retrieve the old values
 select * from core_config_data where path = "web/unsecure/base_url"
 
@@ -28,7 +28,7 @@ update core_config_data set value = "url" where config_id = x and path = "web/un
 
 ### base_url: secure
 
-```
+```sql
 # Retrieve the old values
 select * from core_config_data where path = "web/secure/base_url";
 
@@ -38,7 +38,7 @@ update core_config_data set value = "url" where config_id = x and path = "web/se
 
 ### cookie_domain
 
-```
+```sql
 # Retrieve the old value
 select * from core_config_data where path LIKE "web/cookie/cookie_domain"
 
@@ -48,7 +48,7 @@ update core_config_data set value = "url" where config_id = x and path = "web/co
 
 ### admin
 
-```
+```sql
 # Retrieve the old value
 select * from core_config_data where path LIKE "admin/url/custom"
 
