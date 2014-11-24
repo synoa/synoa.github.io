@@ -32,6 +32,8 @@ sudo nano /etc/apache2/sites-enabled/myproject.local
 sudo service apache2 reload
 ```
 
+If your `DocumentRoot` exists and you open `myproject.local/` in your browser, you should see something. 
+
 
 # MySQL-Backup
 
