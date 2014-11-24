@@ -46,6 +46,8 @@ If your `DocumentRoot` exists and you open `myproject.local/` in your browser, y
 
 # MySQL-Backup
 
+Before you create a MySQL-backup yourself you should checkout the README.md of the project. Maybe there is a backup already. 
+
 ## Export from production db
 
 ```bash
