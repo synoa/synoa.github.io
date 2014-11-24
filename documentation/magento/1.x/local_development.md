@@ -1,3 +1,38 @@
+# Host
+
+## 1. Local host
+
+```bash
+
+# Create the host
+sudo nano /etc/hosts
+
+# Example content
+127.0.0.1 myproject.local
+```
+
+2. VHost
+
+```bash
+
+# Create the VHost
+sudo nano /etc/apache2/sites-enabled/myproject.local
+
+# Example content
+
+<VirtualHost *:80>
+    ServerAlias eneo.local
+    DocumentRoot /home/user/Development/myproject
+</VirtualHost>
+```
+
+3. Reload apache
+
+```bash
+sudo service apache2 reload
+```
+
+
 # MySQL-Backup
 
 ## Export from production db
@@ -70,5 +105,3 @@ find ./media -type f \-exec chmod 666 {} \;
 chmod 777 ./app/etc
 chmod 644 ./app/etc/*.xml
 ```
-
-# Host
