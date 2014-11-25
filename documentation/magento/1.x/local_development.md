@@ -136,3 +136,57 @@ find ./media -type f \-exec chmod 666 {} \;
 chmod 777 ./app/etc
 chmod 644 ./app/etc/*.xml
 ```
+
+# local.xml
+
+Create a `local.xml` inside `app/etc` and set a value for the following nodes:
+
+* install/date (e.g. Fri, 28 Dec 2012 10:47:19 +0000)
+* crypt/key
+* connection/host
+* connection/username
+* connection/password
+* connection/dbname
+
+```xml
+<?xml version="1.0"?>
+<config>
+    <global>
+        <install>
+            <date><![CDATA[]]></date>
+        </install>
+        <crypt>
+            <key><![CDATA[]]></key>
+        </crypt>
+        <disable_local_modules>false</disable_local_modules>
+        <resources>
+            <db>
+                <table_prefix><![CDATA[]]></table_prefix>
+            </db>
+            <default_setup>
+                <connection>
+                    <host><![CDATA[]]></host>
+                    <username><![CDATA[]]></username>
+                    <password><![CDATA[]]></password>
+                    <dbname><![CDATA[]]></dbname>
+                    <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
+                    <model><![CDATA[mysql4]]></model>
+                    <type><![CDATA[pdo_mysql]]></type>
+                    <pdoType><![CDATA[]]></pdoType>
+                    <active>1</active>
+                </connection>
+            </default_setup>
+        </resources>
+        <session_save><![CDATA[files]]></session_save>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <frontName><![CDATA[admin]]></frontName>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
+```
