@@ -71,7 +71,7 @@ Note: If 640 is not possible set it to 644
 
 ### htaccess
 Create an .htaccess file with
-```
+```apache
 <files wp-config.php>
 	order allow, deny
 	deny from all
