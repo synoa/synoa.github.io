@@ -2,6 +2,10 @@
 
 # Upgrade Magento
 
+## Feature Freeze in project
+
+Before we start we should consider a feature freeze for the project. Nobody should touch any code, because this code can result in bugs, but we want to find only bugs which came through the upgrade.
+
 ## Make sure no core files are touched
 
 * Download your installed version of magento and unzip it to any location
