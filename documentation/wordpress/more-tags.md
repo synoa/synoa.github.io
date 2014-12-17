@@ -17,3 +17,7 @@ $more = 0;
 ```
 
 This way, More Tags can be used on pages.
+
+### Resources
+
+- [WordPress Codex](http://codex.wordpress.org/Customizing_the_Read_More#How_to_use_Read_More_in_Pages)
