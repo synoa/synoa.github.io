@@ -16,7 +16,7 @@ die Datei in eigenes Theme kopiere und kommentieren.
 ## Tagging durch Kunden
 
 ### Modulausgabe deaktivieren
-**System > Konfiguration -> Erweitert -> Erweitert > Mage_Tag -> Disable**
+**System -> Konfiguration -> Erweitert -> Erweitert > Mage_Tag -> Disable**
 
 ### Blöcke entfernen
 Vielleicht müssen auch einige Blöcke entfernt werden. Diese sind wohl hauptsächlich in der **base/default/layout/tag.xml** definiert
@@ -24,7 +24,7 @@ Vielleicht müssen auch einige Blöcke entfernt werden. Diese sind wohl hauptsä
 ## Reviews von Kunden
 
 ### Modulausgabe deaktivieren
-**System > Konfiguration -> Erweitert -> Erweitert > Mage_Review -> Disable**
+**System -> Konfiguration -> Erweitert -> Erweitert > Mage_Review -> Disable**
 
 ### Blöcke entfernen
 Vielleicht müssen auch einige Blöcke entfernt werden. Diese sind wohl hauptsächlich in der **base/default/layout/tag.xml** definiert
@@ -32,10 +32,10 @@ Vielleicht müssen auch einige Blöcke entfernt werden. Diese sind wohl hauptsä
 ## Produktvergleich
 
 ### Modul benötigt
-Um den Produktvergleich zu deaktivieren benötigt man ein Modul, welcher die **getAddUrl()** Methode der Klasse **Mage_Catalog_Helper_Product_Compare** überschreibt. Dieses Modul sollte intern schon vorhanden sein und kann einfach mit modman zum Magento Projekt hinzugefügt werden.
+Um den Produktvergleich zu deaktivieren benötigt man ein Modul, welcher die **getAddUrl()** Methode der Klasse **Mage_Catalog_Helper_Product_Compare** überschreibt. Dieses Modul sollte intern schon vorhanden sein und kann einfach mit modman zum Magento Projekt hinzugefügt werden. Diese Modul entfernt die Links "Produkt zur Vergleichliste hinzufügen"
 
 ### Blöcke ausblenden
-Wenn das Theme nicht die Rückgabe der überschriebenen Funktion überprüft, dann können immer noch die Blöcke angezeigt werden. Dann muss man diese in der **local.xml** entfernen
+Zusätzlich muss man Blöcke in der Sidebar mit der **local.xml** entfernen
 
 Ein erster Ansatz
 ```xml
@@ -68,3 +68,9 @@ Man kann in der local.xml Links im Footer entfernen mit
 ```xml
 <remove name="return_link"/>
 ```
+
+## Verfügbarkeiten im Shop ausblend
+
+Es gibt im Shop die Anzeige *Verfügbarkeit: auf Lager* und diese kann man ausblenden in 
+
+System -> Konfiguration -> Lagerverwaltung -> Lageroptionen -> Lagerbestand im Frontend anzeigen -> Nein
