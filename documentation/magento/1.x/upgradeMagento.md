@@ -39,7 +39,8 @@ Download the version you wish to upgrade to.
 
 * Enable Exception Logging
 * Disable cron jobs
-* Setting all Indexers to Update on Save and note the original values
+* Note the values of Index Settings (System -> Index Management)
+* Setting all Indexers to Update on Save
 * Flush the cache
 * Make a backup of the database
 
