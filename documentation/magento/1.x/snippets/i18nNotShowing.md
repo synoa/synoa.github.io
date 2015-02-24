@@ -1,5 +1,7 @@
 # i18n not showing
 
+If i18n not showing make sure you set devleoper mode to off. If developer mode is on translations will be taken only from the module itself.
+
 If you make a translation in the translate.csv in your theme and the translation is not shown in frontend you have to prepend the core translation file. 
 
 ## Example
