@@ -1,49 +1,5 @@
 # Cronjob in Magento
 
-## Table Test
-
-key1 | key2 | key3
-- | - | -
-value | value | value
-value | value | value
-value | value | value
-
-key1|key2|key3
--|-|-
-value|value|value
-value|value|value
-value|value|value
-
-key1|key2|key3
------|------|----
-value|value|value
-value|value|value
-value|value|value
-
-key1 | key2 | key3
--|-|-
-value|value|value
-value|value|value
-value|value|value
-
-key1 | key2 | key3
- - | - | - 
-value|value|value
-value|value|value
-value|value|value
-
-key1 | key2 | key3
- --- | --- | --- 
-value|value|value
-value|value|value
-value|value|value
-
-key1 | key2 | key3
- --- | ---- | --- 
-value|value |value
-value|value |value
-value|value |value
-
 ## Cronjobs in Magento
 
 There are several cron jobs in magento:
@@ -51,7 +7,7 @@ There are several cron jobs in magento:
 ### Reports
 
 cronjob|standard time|file
--|-|-
+---|---|---
 aggregate_sales_report_bestsellers_data|0 0 \* \* \*|sales/observer::aggregateSalesReportBestsellersData
 aggregate_sales_report_coupons_data|0 0 \* \* \*|salesrule/observer::aggregateSalesReportCouponsData
 aggregate_sales_report_invoiced_data|0 0 \* \* \*|sales/observer::aggregateSalesReportInvoicedData
@@ -65,7 +21,7 @@ This cronjobs generate the reports in magento. If the reports are not used you c
 ### Other cron jobs
 
 |cronjob|standard time|file|what it does|enable or disable|configuration|
-|-|
+|---|---|---|---|---|---|
 |aoescheduler_heartbeat|\*/5 \* \* \* \*|aoe_scheduler/heartbeatTask::run|This is a heartbeat cronjob of an extension we should use every time. It checks the cronjob settings.|Enable if extension in use|
 |captcha_delete_expired_images|\*/10 \* \* \* \*|captcha/observer::deleteExpiredImages|Removes old captcha images.|Disable it if CAPTCHAS are not used in project|System > Configuration > Advanced > Admin > CAPTCHA|
 |captcha_delete_old_attempts|\*/30 \* \* \* \*|captcha/observer::deleteOldAttempts|Removes DB entries of failed captchas|Can be disabled if CAPTCHAS are not used|System > Configuration > Advanced > Admin > CAPTCHA|
