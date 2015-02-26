@@ -96,6 +96,15 @@ RewriteCond %{HTTPS} !=on
 RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
 ```
 
+## Change one request to https if called with http
+
+```apache
+# Change one /ssltest to https
+RewriteCond %{REQUEST_URI} ^\/ssltest\/$ [NC]
+RewriteCond %{HTTPS} !on
+RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+```
+
 ## Add self signed certificate in chrome
 
 Okay jetzt auf deutsch weil sonst versteht man es nicht mit den Übersetzungen in Chrome

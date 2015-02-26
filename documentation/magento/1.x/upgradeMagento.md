@@ -39,10 +39,13 @@ Download the version you wish to upgrade to.
 
 * Enable Exception Logging
 * Disable cron jobs
-* Setting all Indexers to Update on Save and note the original values
+* Note the values of Index Settings (System -> Index Management)
+* Setting all Indexers to Update on Save
 * Flush the cache
 * Make a backup of the database
----
+
+## Set old settings again
+
 * If you enabled exception logging maybe you want to enable it again
 * If you changed Indexer settings maybe you want to  set Indexers back to other values if changed
 
@@ -134,12 +137,12 @@ Check the local.xml configuration
 Go into the root folder of your Magento installation and run the following:
 
 ```bash
-find . -type f \-exec chmod 644 {} \;
-find . -type d \-exec chmod 755 {} \;
-find ./var -type d \-exec chmod 777 {} \;
-find ./var -type f \-exec chmod 666 {} \;
-find ./media -type d \-exec chmod 777 {} \;
-find ./media -type f \-exec chmod 666 {} \;
+find . -type f -exec chmod 644 {} \;
+find . -type d -exec chmod 755 {} \;
+find ./var -type d -exec chmod 777 {} \;
+find ./var -type f -exec chmod 666 {} \;
+find ./media -type d -exec chmod 777 {} \;
+find ./media -type f -exec chmod 666 {} \;
 chmod 777 ./app/etc
 chmod 644 ./app/etc/*.xml
 ```
