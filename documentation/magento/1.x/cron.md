@@ -6,15 +6,15 @@ There are several cron jobs in magento:
 
 ### Reports
 
-|cronjob|standard time|file|
-|-|
-|aggregate_sales_report_bestsellers_data|0 0 \* \* \*|sales/observer::aggregateSalesReportBestsellersData|
-|aggregate_sales_report_coupons_data|0 0 \* \* \*|salesrule/observer::aggregateSalesReportCouponsData|
-|aggregate_sales_report_invoiced_data|0 0 \* \* \*|sales/observer::aggregateSalesReportInvoicedData|
-|aggregate_sales_report_order_data|0 0 \* \* \*|sales/observer::aggregateSalesReportOrderData|
-|aggregate_sales_report_refunded_data|0 0 \* \* \*|sales/observer::aggregateSalesReportRefundedData|
-|aggregate_sales_report_shipment_data|0 0 \* \* \*|sales/observer::aggregateSalesReportShipmentData|
-|aggregate_sales_report_tax_data|0 0 \* \* \*|tax/observer::aggregateSalesReportTaxData|
+cronjob|standard time|file
+-|-|-
+aggregate_sales_report_bestsellers_data|0 0 \* \* \*|sales/observer::aggregateSalesReportBestsellersData
+aggregate_sales_report_coupons_data|0 0 \* \* \*|salesrule/observer::aggregateSalesReportCouponsData
+aggregate_sales_report_invoiced_data|0 0 \* \* \*|sales/observer::aggregateSalesReportInvoicedData
+aggregate_sales_report_order_data|0 0 \* \* \*|sales/observer::aggregateSalesReportOrderData
+aggregate_sales_report_refunded_data|0 0 \* \* \*|sales/observer::aggregateSalesReportRefundedData
+aggregate_sales_report_shipment_data|0 0 \* \* \*|sales/observer::aggregateSalesReportShipmentData
+aggregate_sales_report_tax_data|0 0 \* \* \*|tax/observer::aggregateSalesReportTaxData
 
 This cronjobs generate the reports in magento. If the reports are not used you can disable them. If you are using reports you could handle the cronjobs and get performance impacts you should generate the reports time delayed.
 
