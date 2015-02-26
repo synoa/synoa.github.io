@@ -20,25 +20,126 @@ This cronjobs generate the reports in magento. If the reports are not used you c
 
 ### Other cron jobs
 
-|cronjob|standard time|file|what it does|enable or disable|configuration|
-|---|---|---|---|---|---|
-|aoescheduler_heartbeat|\*/5 \* \* \* \*|aoe_scheduler/heartbeatTask::run|This is a heartbeat cronjob of an extension we should use every time. It checks the cronjob settings.|Enable if extension in use|
-|captcha_delete_expired_images|\*/10 \* \* \* \*|captcha/observer::deleteExpiredImages|Removes old captcha images.|Disable it if CAPTCHAS are not used in project|System > Configuration > Advanced > Admin > CAPTCHA|
-|captcha_delete_old_attempts|\*/30 \* \* \* \*|captcha/observer::deleteOldAttempts|Removes DB entries of failed captchas|Can be disabled if CAPTCHAS are not used|System > Configuration > Advanced > Admin > CAPTCHA|
-|catalog_product_alert|0 0 \* \* \*|productalert/observer::process|sending mails like product is available again or price has changed|Can be disabled if it is not used|System > Configuration > Catalog > Catalog > Product Alerts” *and* “System > Configuration > Catalog > Catalog > Product Alerts Run Settings|
-|catalog_product_index_price_reindex_all|0 2 \* \* \*|catalog/observer::reindexProductPrices|reindex the prices for the products|Enable default - Disable if there are performance issues|
-|catalogrule_apply_all|0 1 \* \* \*|catalogrule/observer::dailyCatalogUpdate|Calculates the price changes based on catalog rules. There is a three day interval (yesterday, today, tomorow)|Enable
-|core_clean_cache|30 2 \* \* \*|core/observer::cleanCache|Removes old cache entries based on used caching technique and settings|
-|core_email_queue_clean_up|0 0 \* \* \*|core/email_queue::cleanQueue|
-|core_email_queue_send_all|\*/1 \* \* \* \*|core/email_queue::send|
-|currency_rates_update| |directory/observer::scheduledUpdateCurrencyRates|Updates the currency rates|Disable if not used|System > Configuration > General > Currency Setup > Scheduler Import Settings|
-|log_clean| |log/cron::logClean|Cleans log DB tables from old entries.|Enable default. <br><br>**If you need this data you should write own jobs which will make a backup of this data**|System > Configuration > Advanced > System > Log Cleaning|
-|newsletter_send_all|\*/5 \* \* \* \*|newsletter/observer::scheduledSend|Newsletter will be sent by Magento in a cron job to protect the server that it is not considered as a spam server. <br><br>**Note: It is hard coded in magento that 20 mails will be sent in one run. Big mail lists will take a while**|Enable it if this feature should be used in project.<br><br>**Code changes have to be done if there are many receivers**|
-|paypal_fetch_settlement_reports| |paypal/observer::fetchReports|Fetch paypal settlement reports automatically|Can be disabled if not in use|System > Configuration > Sales > Payment Methods > PayPal All-in-One Payment Solutions > PayPal Payments Advanced (Includes Express Checkout) > Required PayPal Settings > Basic Settings – PayPal Payments Advanced > Advanced Settings > Settlement Report Settings|
-|persistent_clear_expired|0 0 \* \* \*|persistent/observer::clearExpiredCronJob|If persistent cart is enabled this will remove the carts which sessions are expired|Enable if persisten cart is enabled|System > Configuration > Customers > Persistent Shopping Cart
-|sales_clean_quotes|0 0 \* \* \*|sales/observer::cleanExpiredQuotes|Removes Quotes which have led to an order|**TODO**|System > Configuration > Sales > Checkout > Shopping Cart > Quote Lifetime (days)
-|sitemap_generate|0 0 \* \* \*|sitemap/observer::scheduledGenerateSitemaps|Generates the sitemap file for search engines|depends on project|Catalog > Google Sitemap *and* System > Configuration > Catalog > Google Sitemap|
-|system_backup| |backup/observer::scheduledBackup|Make backups of db, media folder and/or project files|Disable if not used|System > Configuration > Advanced > System > Scheduled Backup Settings
+#### aoescheduler_heartbeat
+* **default cron expression:**<br> \*/5 \* \* \* \*
+* **file:**<br>aoe_scheduler/heartbeatTask::run
+* **What it does:**<br>This is a heartbeat cronjob of an extension we should use every time. It checks the cronjob settings.
+* **Enable or disable:**<br>Enable if extension in use
+
+#### captcha_delete_expired_images
+* **default cron expression:**<br>\*/10 \* \* \* \*
+* **file:**<br>captcha/observer::deleteExpiredImages
+* **What it does:**<br>Removes old captcha images.
+* **Enable or disable:**<br>Disable it if CAPTCHAS are not used in project
+* **Configuration:**<br>System > Configuration > Advanced > Admin > CAPTCHA
+
+#### captcha_delete_old_attempts
+* **default cron expression:**<br>\*/30 \* \* \* \*
+* **file:**<br>captcha/observer::deleteOldAttempts
+* **What it does:**<br>Removes DB entries of failed captchas
+* **Enable or disable:**<br>Can be disabled if CAPTCHAS are not used
+* **Configuration:**<br>System > Configuration > Advanced > Admin > CAPTCHA
+
+#### catalog_product_alert
+* **default cron expression:**<br>0 0 \* \* \*
+* **file:**<br>productalert/observer::process
+* **What it does:**<br>sending mails like product is available again or price has changed
+* **Enable or disable:**<br>Can be disabled if it is not used
+* **Configuration:**<br>System > Configuration > Catalog > Catalog > Product Alerts” *and* “System > Configuration > Catalog > Catalog > Product Alerts Run Settings
+
+#### catalog_product_index_price_reindex_all
+* **default cron expression:**<br>0 2 \* \* \*
+* **file:**<br>catalog/observer::reindexProductPrices
+* **What it does:**<br>reindex the prices for the products
+* **Enable or disable:**<br>Enable default - Disable if there are performance issues
+
+#### catalogrule_apply_all
+* **default cron expression:**<br>0 1 \* \* \*
+* **file:**<br>catalogrule/observer::dailyCatalogUpdate
+* **What it does:**<br>Calculates the price changes based on catalog rules. There is a three day interval (yesterday, today, tomorow)
+* **Enable or disable:**<br>Enable
+
+#### core_clean_cache
+* **default cron expression:**<br>30 2 \* \* \*
+* **file:**<br>core/observer::cleanCache
+* **What it does:**<br>Removes old cache entries based on used caching technique and settings
+* **Enable or disable:**<br>**TODO**
+
+#### core_email_queue_clean_up
+* **default cron expression:**<br>0 0 \* \* \*
+* **file:**<br>core/email_queue::cleanQueue
+* **What it does:**<br>**TODO**
+* **Enable or disable:**<br>**TODO**
+* **Configuration:**<br>**TODO**
+
+#### core_email_queue_send_all
+* **default cron expression:**<br>**TODO**
+* **file:**<br>**TODO**
+* **What it does:**<br>**TODO**
+* **Enable or disable:**<br>**TODO**
+* **Configuration:**<br>**TODO**
+
+#### core/email_queue::send
+* **default cron expression:**<br>**TODO**
+* **file:**<br>**TODO**
+* **What it does:**<br>**TODO**
+* **Enable or disable:**<br>**TODO**
+* **Configuration:**<br>**TODO**
+
+#### currency_rates_update
+* **default cron expression:**<br>no default cron expression
+* **file:**<br>directory/observer::scheduledUpdateCurrencyRates
+* **What it does:**<br>Updates the currency rates
+* **Enable or disable:**<br>Disable if not used
+* **Configuration:**<br>System > Configuration > General > Currency Setup > Scheduler Import Settings
+
+#### log_clean
+* **default cron expression:**<br>no default cron expression
+* **file:**<br>log/cron::logClean
+* **What it does:**<br>Cleans log DB tables from old entries.
+* **Enable or disable:**<br>Enable default. <br><br>**If you need this data you should write own jobs which will make a backup of this data**
+* **Configuration:**<br>System > Configuration > Advanced > System > Log Cleaning
+
+#### newsletter_send_all
+* **default cron expression:**<br>\*/5 \* \* \* \*
+* **file:**<br>newsletter/observer::scheduledSend
+* **What it does:**<br>Newsletter will be sent by Magento in a cron job to protect the server that it is not considered as a spam server.**Note: It is hard coded in magento that 20 mails will be sent in one run. Big mail lists will take a while**
+* **Enable or disable:**<br>Enable it if this feature should be used in project.<br>**Code changes have to be done if there are many receivers**
+
+#### paypal_fetch_settlement_reports
+* **default cron expression:**<br>no default cron expression
+* **file:**paypal/observer::fetchReports
+* **What it does:**<br>Fetch paypal settlement reports automatically
+* **Enable or disable:**<br>Can be disabled if not in use
+* **Configuration:**<br>System > Configuration > Sales > Payment Methods > PayPal All-in-One Payment Solutions > PayPal Payments Advanced (Includes Express Checkout) > Required PayPal Settings > Basic Settings <br>**and**<br>PayPal Payments Advanced > Advanced Settings > Settlement Report Settings
+
+#### persistent_clear_expired
+* **default cron expression:**<br>0 0 \* \* \*
+* **file:**<br>persistent/observer::clearExpiredCronJob
+* **What it does:**<br>If persistent cart is enabled this will remove the carts which sessions are expired
+* **Enable or disable:**<br>Enable if persisten cart is enabled
+* **Configuration:**<br>System > Configuration > Customers > Persistent Shopping Cart
+
+#### sales_clean_quotes
+* **default cron expression:**<br>0 0 \* \* \*
+* **file:**<br>sales/observer::cleanExpiredQuotes
+* **What it does:**<br>Removes Quotes which have led to an order
+* **Enable or disable:**<br>**TODO**
+* **Configuration:**<br>System > Configuration > Sales > Checkout > Shopping Cart > Quote Lifetime (days)
+
+#### sitemap_generate
+* **default cron expression:**<br>0 0 \* \* \*
+* **file:**<br>sitemap/observer::scheduledGenerateSitemaps
+* **What it does:**<br>Generates the sitemap file for search engines
+* **Enable or disable:**<br>depends on project
+* **Configuration:**<br>Catalog > Google Sitemap<br>**and**<br>System > Configuration > Catalog > Google Sitemap
+
+#### system_backup
+* **default cron expression:**<br>no default cron expression
+* **file:**<br>backup/observer::scheduledBackup
+* **What it does:**<br>Make backups of db, media folder and/or project files
+* **Enable or disable:**<br>Disable if not used
+* **Configuration:**<br>System > Configuration > Advanced > System > Scheduled Backup Settings
 
 ## What means the stars
 
@@ -55,8 +156,9 @@ This cronjobs generate the reports in magento. If the reports are not used you c
 
 ### Examples
 
+
 |value|result|
-|-|
+|---|---|
 |0 0 \* \* \*|daily|
 |0 0 \* \* \*|midnight|
 |0 \* \* \* \*|hourly|
