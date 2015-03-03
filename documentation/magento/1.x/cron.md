@@ -68,23 +68,14 @@ This cronjobs generate the reports in magento. If the reports are not used you c
 #### core_email_queue_clean_up
 * **default cron expression:**<br>0 0 \* \* \*
 * **file:**<br>core/email_queue::cleanQueue
-* **What it does:**<br>**TODO**
-* **Enable or disable:**<br>**TODO**
-* **Configuration:**<br>**TODO**
+* **What it does:**<br>Cleans the queue table maybe. Check code to be sure.
+* **Enable or disable:**<br>Enable
 
 #### core_email_queue_send_all
-* **default cron expression:**<br>**TODO**
-* **file:**<br>**TODO**
-* **What it does:**<br>**TODO**
-* **Enable or disable:**<br>**TODO**
-* **Configuration:**<br>**TODO**
-
-#### core/email_queue::send
-* **default cron expression:**<br>**TODO**
-* **file:**<br>**TODO**
-* **What it does:**<br>**TODO**
-* **Enable or disable:**<br>**TODO**
-* **Configuration:**<br>**TODO**
+* **default cron expression:**<br>\* \* \* \* \*
+* **file:**<br>core/email_queue::send
+* **What it does:**<br>Send emails which are queued. (In default it will fetch max 100 e-mails per run)
+* **Enable or disable:**<br>Enable
 
 #### currency_rates_update
 * **default cron expression:**<br>no default cron expression
@@ -140,6 +131,20 @@ This cronjobs generate the reports in magento. If the reports are not used you c
 * **What it does:**<br>Make backups of db, media folder and/or project files
 * **Enable or disable:**<br>Disable if not used
 * **Configuration:**<br>System > Configuration > Advanced > System > Scheduled Backup Settings
+
+#### factfinder_scic_queue_processing
+* **default cron expression:**<br>\* \* \* \* \*
+* **file:**<br>factfinder/observer::processScicOrderQueue
+* **What it does:**<br>Send files to fact finder for checkout tracking
+* **Enable or disable:**<br>Not sure
+* **Configuration:**<br>Nothing found maybe you should check again backend and change this line if you have found something
+
+#### turpentine_crawl_urls
+* **default cron expression:**<br>0,10,20,30,40,50 \* \* \* \*
+* **file:**<br>turpentine/observer_cron::crawlUrls
+* **What it does:**<br>Crawling URLs but not sure, nothing found maybe check code if needed
+* **Enable or disable:**<br>Not sure
+* **Configuration:**<br>Nothing found maybe you should check again backend and change this line if you have found something
 
 ## What means the stars
 
