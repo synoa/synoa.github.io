@@ -119,6 +119,8 @@ git branch -d feat/<reference>/<featureName>
 git push origin :feat/<reference>/<featureName>
 ```
 
+---
+
 ## Feature has a bug
 
 If you find a bug in one of the features that is ready to be released and the feature was already deleted, you create a bugfix branch from **release** to fix the bug:
