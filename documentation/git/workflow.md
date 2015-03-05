@@ -22,6 +22,8 @@ The starting point for every project is the **master** branch. And the first thi
 * When you create a new project on GitHub you can choose one of the predefined **.gitignore** files for a specific programming language if you have no idea what to put inside it:
   ![GitHub predefined .gitignore](https://raw.githubusercontent.com/synoa/synoa.github.io/master/documentation/git/img/github_new_repo_predefined_gitignore.png)
 
+---
+
 ## Create the review branch
 
 The **master** is used to update the productive system (your live site), so everything inside the **master** is tested and working. The **review** branch is used to test the developed features on a test-system, but more about this later. For now, we just create the **review** branch once for every repository:
@@ -72,5 +74,8 @@ git push origin feat/<reference>/<featureName>
 
 Your feature is "almost" finished and you want others to test it. This is when the **review** branch comes into play, because the **review** is checked out on the test-system (together with every other feature that's ready for testing).
 
-
-
+```
+git checkout review
+git merge --no-ff feat/<reference>/<featureName>
+git push review
+```
