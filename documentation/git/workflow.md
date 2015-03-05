@@ -22,6 +22,23 @@ The starting point for every project is the **master** branch. And the first thi
 * When you create a new project on GitHub you can choose one of the predefined **.gitignore** files for a specific programming language if you have no idea what to put inside it:
   ![GitHub predefined .gitignore](https://raw.githubusercontent.com/synoa/synoa.github.io/master/documentation/git/img/github_new_repo_predefined_gitignore.png)
 
-## Start developing
+---
+
+## Development
+
+Create a new branch for every feature you want to develop from the **master** branch:
+
+```
+git checkout -b feat/<reference>/<featureName> master
+```
+
+* *<reference>* is the task from your management system (e.g. a bug tracker or resource planning) you create this feature for
+* *<featureName>* is a user readable explanation for what this branch is about
+
+### Example
+
+If we have a task with the id "1337" and we want to create a new feature for updating customers, the branch would be named like this: ```feat/1337/updateCustomers```
+
+
 
 
