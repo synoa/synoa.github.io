@@ -16,8 +16,12 @@ The starting point for every project is the **master** branch. And the first thi
   git push origin master
   ```
 
-#### Hint
+#### Hints
 
 * Use **.gitignore** to ignore files that should not be inside the repository before you create your initial commit
 * When you create a new project on GitHub you can choose one of the predefined **.gitignore** files for a specific programming language if you have no idea what to put inside it:
-  ![GitHub predefined .gitignore]()
+  ![GitHub predefined .gitignore](https://raw.githubusercontent.com/synoa/synoa.github.io/master/documentation/git/img/github_new_repo_predefined_gitignore.png)
+
+## Start developing
+
+
