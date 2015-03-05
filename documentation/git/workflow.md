@@ -126,7 +126,7 @@ git push origin :feat/<reference>/<featureName>
 If you find a bug in one of the features that is ready to be released and the feature was already deleted, you create a bugfix branch from **release** to fix the bug:
 
 ```
-git checkout -b bug/<reference>/<bugName> review
+git checkout -b bug/<reference>/<bugName> release
 ```
 
 If you want to test your fix you merge your bugfix branch back into **review** so that it can be tested on the test-system:
@@ -135,4 +135,17 @@ If you want to test your fix you merge your bugfix branch back into **review** s
 git checkout review
 git merge --no-ff bug/<reference>/<bugName>
 git push review
+```
+
+---
+
+## Release is ready
+
+You added all completed features to your **release** and want to update your productive system. 
+
+```
+git checkout master
+git merge --no-ff release
+# @TODO: add tags
+git push master
 ```
