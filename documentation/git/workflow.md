@@ -32,12 +32,12 @@ Create a new branch for every feature you want to develop from the **master** br
 git checkout -b feat/<reference>/<featureName> master
 ```
 
-* *<reference>* is the task from your management system (e.g. a bug tracker or resource planning) you create this feature for
-* *<featureName>* is a user readable explanation for what this branch is about
+* `<reference>` is the task from your management system (e.g. a bug tracker or resource planning) you create this feature for
+* `<featureName>` is a user readable explanation for what this branch is about
 
 ### Example
 
-If we have a task with the id "1337" and we want to create a new feature for updating customers, the branch would be named like this: ```feat/1337/updateCustomers```
+If we have a task with the id "1337" and we want to create a new feature to update customers, the branch would be named like this: `feat/1337/updateCustomers`
 
 
 
