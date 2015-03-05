@@ -70,6 +70,8 @@ For now the branch you created is only avialable in your local repository, so if
 git push origin feat/<reference>/<featureName>
 ```
 
+---
+
 ## Feature is ready for testing
 
 Your feature is "almost" finished and you want others to test it. This is when the **review** branch comes into play, because the **review** is checked out on the test-system (together with every other feature that's ready for testing).
