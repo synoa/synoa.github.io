@@ -22,6 +22,15 @@ The starting point for every project is the **master** branch. And the first thi
 * When you create a new project on GitHub you can choose one of the predefined **.gitignore** files for a specific programming language if you have no idea what to put inside it:
   ![GitHub predefined .gitignore](https://raw.githubusercontent.com/synoa/synoa.github.io/master/documentation/git/img/github_new_repo_predefined_gitignore.png)
 
+## Create the review branch
+
+The **master** is used to update the productive system, so everything inside the **master** is tested and working. The **review** branch is used to test the developed features on a test-system, but more about this later. For now, we just create the **review** branch once:
+
+```
+git checkout -b review master
+git push origin review
+```
+
 ---
 
 ## Start development
@@ -53,11 +62,15 @@ git commit -m 'My commit message'
 
 ### Share the branch on GitHub
 
-For now the branch you created is only in your local repository, so if you want to share it with others you have to push it to the remote repository:
+For now the branch you created is only avialable in your local repository, so if you want to share it with others you have to push it to the remote repository:
 
 ```
 git push origin feat/<reference>/<featureName>
 ```
+
+## Feature is ready for testing
+
+
 
 
 
