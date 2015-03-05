@@ -90,7 +90,7 @@ Your feature was tested and the development is done, so you can merge it into th
 
 ### Create the release branch
 
-The **release** branch has to be created if it doesn't exist yet. If there is a **release** branch already, you can skip this section. If not, create the branch:
+The **release** branch has to be created if it doesn't exist yet. If there is a **release** branch already, you can skip this section.
 
 ```
 git checkout -b release master
@@ -107,3 +107,30 @@ git merge --no-ff feat/<reference>/<featureName>
 git push release
 ```
 
+### Delete feature branch
+
+After merging the feature into the release, you don't need the feature anymore and you can delete it: 
+
+```
+# Delete branch locally
+git branch -d feat/<reference>/<featureName>
+
+# Delete branch on GitHub
+git push origin :feat/<reference>/<featureName>
+```
+
+## Feature has a bug
+
+If you find a bug in one of the features that is ready to be released and the feature was already deleted, you create a bugfix branch from **release** to fix the bug:
+
+```
+git checkout -b bug/<reference>/<bugName> review
+```
+
+If you want to test your fix you merge your bugfix branch back into **review** so that it can be tested on the test-system:
+
+```
+git checkout review
+git merge --no-ff bug/<reference>/<bugName>
+git push review
+```
