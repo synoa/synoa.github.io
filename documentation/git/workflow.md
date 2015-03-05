@@ -74,10 +74,36 @@ git push origin feat/<reference>/<featureName>
 
 ## Feature is ready for testing
 
-Your feature is "almost" finished and you want others to test it. This is when the **review** branch comes into play, because the **review** is checked out on the test-system (together with every other feature that's ready for testing).
+Your feature is "almost" finished and you want others to test it. This is when the **review** branch comes into play, because the **review** is used on the test-system.
 
 ```
 git checkout review
 git merge --no-ff feat/<reference>/<featureName>
 git push review
 ```
+
+---
+
+## Feature is done
+
+Your feature was tested and the development is done, so you can merge it into the **release** branch. 
+
+### Create the release branch
+
+The **release** branch has to be created if it doesn't exist yet. If there is a **release** branch already, you can skip this section. If not, create the branch:
+
+```
+git checkout -b release master
+git push origin release
+```
+
+A release consists of 1 or more feature branches and will be deleted once it's merged with the **master**. 
+
+### Merge feature into release
+
+```
+git checkout release
+git merge --no-ff feat/<reference>/<featureName>
+git push release
+```
+
