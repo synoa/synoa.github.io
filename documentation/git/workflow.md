@@ -141,7 +141,7 @@ git push review
 
 ## Release is ready
 
-You added all completed features to your **release** and want to update your productive system. 
+You added all completed features to your **release** and want to update your productive system (**master**).  
 
 ```
 git checkout master
