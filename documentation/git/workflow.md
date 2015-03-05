@@ -39,7 +39,7 @@ git checkout -b feat/<reference>/<featureName> master
 
 ### Example
 
-If we have a task with the id "1337" and we want to create a new feature to update customers, the branch would be named like this: `feat/1337/updateCustomers`
+If you have a task with the id "1337" and you want to create a new feature to update customers, the branch would be named like this: `feat/1337/updateCustomers`
 
 
 ### Commit your changes
@@ -49,6 +49,14 @@ When you are done developing your feature, you can commit your changes:
 ```
 git add .
 git commit -m 'My commit message'
+```
+
+### Share the branch on GitHub
+
+For now the branch you created is only in your local repository, so if you want to share it with others you have to push it to the remote repository:
+
+```
+git push origin feat/<reference>/<featureName>
 ```
 
 
