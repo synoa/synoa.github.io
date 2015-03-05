@@ -24,7 +24,7 @@ The starting point for every project is the **master** branch. And the first thi
 
 ## Create the review branch
 
-The **master** is used to update the productive system, so everything inside the **master** is tested and working. The **review** branch is used to test the developed features on a test-system, but more about this later. For now, we just create the **review** branch once:
+The **master** is used to update the productive system (your live site), so everything inside the **master** is tested and working. The **review** branch is used to test the developed features on a test-system, but more about this later. For now, we just create the **review** branch once for every repository:
 
 ```
 git checkout -b review master
@@ -70,7 +70,7 @@ git push origin feat/<reference>/<featureName>
 
 ## Feature is ready for testing
 
-
+Your feature is "almost" finished and you want others to test it. This is when the **review** branch comes into play, because the **review** is checked out on the test-system (together with every other feature that's ready for testing).
 
 
 
