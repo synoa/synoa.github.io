@@ -35,7 +35,7 @@ git push origin review
 
 ## Start development
 
-### Create a new feature branch
+### Create a new feature
 
 Create a new branch for every feature you want to develop, using the **master** branch as it's parent:
 
@@ -46,12 +46,12 @@ git checkout -b feat/<reference>/<featureName> master
 * `<reference>` is the task from your management system (e.g. a bug tracker or resource planning) you create this feature for
 * `<featureName>` is a user readable explanation for what this branch is about
 
-### Example
+#### Example
 
 If you have a task with the id "1337" and you want to create a new feature to update customers, the branch would be named like this: `feat/1337/updateCustomers`
 
 
-### Commit your changes
+#### Commit your changes
 
 When you are done developing your feature, you can commit your changes:
 
@@ -60,7 +60,7 @@ git add .
 git commit -m 'My commit message'
 ```
 
-### Share the branch on GitHub
+#### Share the branch on GitHub
 
 For now the branch you created is only avialable in your local repository, so if you want to share it with others you have to push it to the remote repository:
 
