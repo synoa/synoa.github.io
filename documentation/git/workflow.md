@@ -1,6 +1,6 @@
 # synoa's git workflow
 
-## Basic structure
+## Create the repository
 
 The starting point for every project is the **master** branch. And the first thing to do is to create the initial commit directly into the **master** to set the code base for every other developer in the project.
 
@@ -24,9 +24,11 @@ The starting point for every project is the **master** branch. And the first thi
 
 ---
 
-## Development
+## Start development
 
-Create a new branch for every feature you want to develop from the **master** branch:
+### Create a new feature branch
+
+Create a new branch for every feature you want to develop, using the **master** branch as it's parent:
 
 ```
 git checkout -b feat/<reference>/<featureName> master
@@ -39,6 +41,15 @@ git checkout -b feat/<reference>/<featureName> master
 
 If we have a task with the id "1337" and we want to create a new feature to update customers, the branch would be named like this: `feat/1337/updateCustomers`
 
+
+### Commit your changes
+
+When you are done developing your feature, you can commit your changes:
+
+```
+git add .
+git commit -m 'My commit message'
+```
 
 
 
