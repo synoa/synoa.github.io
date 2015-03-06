@@ -239,13 +239,20 @@ If you are sure the cron job is added correctly, but nothing is happening, you h
 * Login to the server via SSH to use the command line
 * Execute `which php`, which tells you where php (e.g. `/usr/local/bin/php`) is installed for the current user you used to login to the server
 * Edit `cron.sh` and change the following line (+ replace `phpInstallDir` with the path to your php installation)
-  
   ```bash
     # Remove this line
     PHP_BIN=`which php`
     
-    # Add this line instead
-    PHP_BIN=phpInstallDir
+    # And add this block instead of it
+    
+    # Path to the "real" php binary
+    PHP_BIN="/usr/local/bin/php";
+
+    # The php binary does not exist
+    if [ ! -f "$PHP_BIN" ]; then
+      # Find the system specific php binary
+      PHP_BIN=`which php`
+    fi
   ```
 
 Why? Because the user that executes the cron job (e.g. `root`) has a different php installation (e.g. `/usr/bin/php`) than the user which delivers the page itself (e.g. `/usr/local/bin/php`). And the php installation for the user executing the cron job might not have all the php extensions that are needed to execute the cron job. That's why we are using the php installation of the user which delivers the page.  
