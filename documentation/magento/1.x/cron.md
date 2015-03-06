@@ -232,6 +232,8 @@ Add the following job via `crontab -e`:
 
 ### Cron is not working
 
+#### Executing user is someone else
+
 If you are sure the cron job is added correctly, but nothing is happening, you have to do the following:
 
 * Login to the server via SSH to use the command line
@@ -245,6 +247,7 @@ If you are sure the cron job is added correctly, but nothing is happening, you h
     # Add this line instead
     PHP_BIN=phpInstallDir
   ```
+Why? Because the user that executes the cron job (e.g. `root`) has a different php installation (e.g. `/usr/bin/php`) than the user which delivers the page itself (e.g. `/usr/local/bin/php`). And the php installation for the user executing the cron job might not have all the php extensions that are needed to execute the cron job. That's why we are using the php installation of the user which delivers the page.  
 
 ## Recommended Extensions
 
