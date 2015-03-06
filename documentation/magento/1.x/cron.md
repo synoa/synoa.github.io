@@ -238,15 +238,14 @@ If you are sure the cron job is added correctly, but nothing is happening, you h
 
 * Login to the server via SSH to use the command line
 * Execute `which php`, which tells you where php (e.g. `/usr/local/bin/php`) is installed for the current user you used to login to the server
-* Edit `cron.sh` and change the following line (+ replace `phpInstallDir` with the path to your php installation)
+* Edit `cron.sh` and remove the following line:
   ```bash
-    # Remove this line
     PHP_BIN=`which php`
-    
-    # And add this block instead of it
-    
+  ```
+  and add this code instead (+ replace `phpInstallDir` with the path to your php installation):
+  ```bash
     # Path to the "real" php binary
-    PHP_BIN="/usr/local/bin/php";
+    PHP_BIN="phpInstallDir";
 
     # The php binary does not exist
     if [ ! -f "$PHP_BIN" ]; then
