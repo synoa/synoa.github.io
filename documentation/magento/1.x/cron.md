@@ -215,6 +215,37 @@ This line calls the cron.sh file every 5 minutes.
 
 Exit editor and save the file
 
+
+## Setup cron on server
+
+Set the permissions for `cron.php` and `cron.sh`:
+
+```bash
+chmod 644 cron.sh cron.php
+```
+
+Add the following job via `crontab -e`:
+
+```bash
+*/5 * * * * /bin/sh /pathToMagento/cron.sh
+```
+
+### Cron is not working
+
+If you are sure the cron job is added correctly, but nothing is happening, you have to do the following:
+
+* Login to the server via SSH to use the command line
+* Execute `which php`, which tells you where php (e.g. `/usr/local/bin/php`) is installed for the current user you used to login to the server
+* Edit `cron.sh` and change the following line (+ replace `phpInstallDir` with the path to your php installation)
+  
+  ```bash
+    # Remove this line
+    PHP_BIN=`which php`
+    
+    # Add this line instead
+    PHP_BIN=phpInstallDir
+  ```
+
 ## Recommended Extensions
 
 ### Aoe_Scheduler
