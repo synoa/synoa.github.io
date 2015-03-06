@@ -256,6 +256,18 @@ If you are sure the cron job is added correctly, but nothing is happening, you h
 
 Why? Because the user that executes the cron job (e.g. `root`) has a different php installation (e.g. `/usr/bin/php`) than the user which delivers the page itself (e.g. `/usr/local/bin/php`). And the php installation for the user executing the cron job might not have all the php extensions that are needed to execute the cron job. That's why we are using the php installation of the user which delivers the page.  
 
+## Protect cron.sh and cron.php from calling from browser
+
+Add this lines to your _.htaccess_ file to protect _cron.sh_ and _cron.php_ get called by browser
+
+```bash
+############################################
+## Protect cron files that are not get called by browser
+
+    RewriteRule ^cron.sh$ index.php [L]
+    RewriteRule ^cron.php$ index.php [L]
+```
+
 ## Recommended Extensions
 
 ### Aoe_Scheduler
