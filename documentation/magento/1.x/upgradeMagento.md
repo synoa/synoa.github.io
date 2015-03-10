@@ -111,6 +111,17 @@ Update Base URL for development
 Check the local.xml configuration
 
 ### Update magento
+
+Open Magento Connect
+
+System -> Magento Connect -> Magento Connect Manager
+Log in again
+Mark the checkbox _Put store on the maintenance mode while installing/upgrading/backup creation_
+Click button _Check for upgrades_
+Mark the checkbox _Clear all sessions after successful install or upgrade_
+Select in _Mage_All_Latest_ the version you wish to upgrade to
+Click commit changes
+
 TODO: more information about updating with magento connect
 Go to magento connect page and update package MageAll_Latest
 
