@@ -31,10 +31,6 @@ git diff filename.xxx
 
 * It is recommended to check the internet for problems with upgrading to this version.
 
-## Download actual magento version
-
-Download the version you wish to upgrade to.
-
 ## Pre Upgrade Tasks on Production Server (recommended by magento)
 
 * Enable Exception Logging
@@ -49,19 +45,9 @@ Download the version you wish to upgrade to.
 * If you enabled exception logging maybe you want to enable it again
 * If you changed Indexer settings maybe you want to  set Indexers back to other values if changed
 
-## On development
-
-### Magento Installation Files
-
-* Unzip your magento installation files anywhere
-* Remove files:
- * errors/local.xml.sample
- * index.php.sample
- * .htaccess.sample
- * php.ini.sample
- * favicon.ico
-
 ## Development Installation
+
+### Make a branch
 
 * Make a pull to get actual version
 
@@ -73,16 +59,8 @@ git pull
 ```
 git checkout -b "/upg/#callId/upgradeToVersion_x.x.x"
 ```
-* remove folder app/code/core
 
-```bash
-rm -rf app/code/core/
-```
-
-* Check community extensions which are in magento installation files
-* remove all directories in **app/code/community/** which are also in the **app/code/community/** in your installation files
-* copy all files from magento installation files and overwrite existing files
-* Import Database
+### Import Database
 
 ```bash
 mysql -u dbuser -p dbname < dump.sql
@@ -131,6 +109,25 @@ update core_config_data set value = "url" where config_id = x and path = "admin/
 ```
 Update Base URL for development
 Check the local.xml configuration
+
+### Disable and Flush the Cache
+
+TODO
+
+### Update magento
+
+Open Magento Connect
+
+* System -> Magento Connect -> Magento Connect Manager
+* Log in again
+* Mark the checkbox _Put store on the maintenance mode while installing/upgrading/backup creation_
+* Click button _Check for upgrades_
+* Mark the checkbox _Clear all sessions after successful install or upgrade_
+* Select in _Mage_All_Latest_ the version you wish to upgrade to
+* Click commit changes
+
+TODO: more information about updating with magento connect
+Go to magento connect page and update package MageAll_Latest
 
 ### Set file permissions
 
