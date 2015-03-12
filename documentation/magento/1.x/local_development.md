@@ -82,6 +82,20 @@ TRUNCATE TABLE `log_visitor_info`;
 
 ## Change the URLs
 
+*Note*: To update multiple values, e.g. for a multi-language Shop, you can use the MySQL `replace`
+function like shown below. 
+
+```sql
+# syntax
+update [table_name] set [field_name] = 
+replace([field_name],'[string_to_find]','[string_to_replace]');
+
+# real world example 
+update core_config_data 
+set value = replace(value, 'http://liveshop.tld', 'http://localshop.tld')
+where path = "web/unsecure/base_url";
+```
+
 ### base_url: unsecure
 
 ```sql
