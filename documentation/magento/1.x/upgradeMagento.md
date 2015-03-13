@@ -186,6 +186,15 @@ Open Magento Connect
 * Select in _Mage_All_Latest_ the version you wish to upgrade to
 * Click commit changes
 
+### Check the output
+
+There should be no errors at all
+
+```
+CONNECT ERROR: Failed to open file /var/www/shop.local/security/downloader/.cache/community/Interface_Adminhtml_Default-1.9.1.0/app/design/adminhtml/default/default/template/downloadable/sales/order/invoice/create/items/renderer
+```
+Even if it seems its all upgraded and it is all running you missed something. Magento connect says there are no upgrades, but you missed something.
+
 ### Enable Debug options
 
 * Enable Exception Logging
