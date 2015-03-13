@@ -143,7 +143,7 @@ Open _downloader/lib/Mage/Archive/Tar.php_ with your editor and search for the _
 
 Change the one line
 
-```bash
+```diff
 diff --git a/downloader/lib/Mage/Archive/Tar.php b/downloader/lib/Mage/Archive/Tar.php
 index df20d89..e0539c6 100644
 --- a/downloader/lib/Mage/Archive/Tar.php
