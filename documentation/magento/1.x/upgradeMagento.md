@@ -112,22 +112,52 @@ Check the local.xml configuration
 
 ### Disable and Flush the Cache
 
-TODO
+Easy with magerun
 
-### Update magento
+```bash
+magerun.phar cache:disable
+```
 
-Open Magento Connect
+```bash
+magerun.phar cache:clean
+```
 
-* System -> Magento Connect -> Magento Connect Manager
-* Log in again
-* Mark the checkbox _Put store on the maintenance mode while installing/upgrading/backup creation_
-* Click button _Check for upgrades_
-* Mark the checkbox _Clear all sessions after successful install or upgrade_
-* Select in _Mage_All_Latest_ the version you wish to upgrade to
-* Click commit changes
+```bash
+magerun.phar cache:flush
+```
 
-TODO: more information about updating with magento connect
-Go to magento connect page and update package MageAll_Latest
+### Cleanup var directory
+
+Remove content in following directories:
+
+* var/cache
+* var/locks
+* var/sessions
+* var/full_page_cache
+
+### Edit the Tar.php
+
+For more information about this see [this article](https://www.templatetag.com/blog/long-file-names-magento-connect-bug/)
+
+Open _downloader/lib/Mage/Archive/Tar.php_ with your editor and search for the _ _extractFileHeader()_ method
+
+Change the one line
+
+```bash
+diff --git a/downloader/lib/Mage/Archive/Tar.php b/downloader/lib/Mage/Archive/Tar.php
+index df20d89..e0539c6 100644
+--- a/downloader/lib/Mage/Archive/Tar.php
++++ b/downloader/lib/Mage/Archive/Tar.php
+@@ -560,7 +560,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
+         $checksumOk = $header['checksum'] == $checksum;
+         if (isset($header['name']) && $checksumOk) {
+ 
+-            if (!($header['name'] == '././@LongLink' && $header['type'] == 'L')) {
++            if (!(trim($header['name']) == '././@LongLink' && $header['type'] == 'L')) {
+                 $header['name'] = trim($header['name']);
+                 return $header;
+             }
+```
 
 ### Set file permissions
 
@@ -143,6 +173,18 @@ find ./media -type f -exec chmod 666 {} \;
 chmod 777 ./app/etc
 chmod 644 ./app/etc/*.xml
 ```
+
+### Update magento
+
+Open Magento Connect
+
+* System -> Magento Connect -> Magento Connect Manager
+* Log in again
+* Mark the checkbox _Put store on the maintenance mode while installing/upgrading/backup creation_
+* Click button _Check for upgrades_
+* Mark the checkbox _Clear all sessions after successful install or upgrade_
+* Select in _Mage_All_Latest_ the version you wish to upgrade to
+* Click commit changes
 
 ### Enable Debug options
 
