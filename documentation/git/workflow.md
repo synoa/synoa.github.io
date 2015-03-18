@@ -31,7 +31,7 @@ The starting point for every project is the **master** branch. And the first thi
 
 ### Create the review branch
 
-The **master** is used to update the productive system, so everything inside the **master** is tested and working. The **review** branch is used to test the developed features on a test-system (more about this later). For now, we just create the **review** branch once for every project as a branch of **master**:
+The **master** is used to update the **production site**, so everything inside the **master** is tested and working. The **review** branch is used to test the developed features on a **staging site** (more about this later). For now, we just create the **review** branch once for every project as a branch of **master**:
 
 ```bash
 # Update master
@@ -44,6 +44,10 @@ git checkout -b review master
 # Push review to GitHub
 git push origin review
 ```
+
+### Prepare deployment
+
+
 
 ---
 
@@ -90,7 +94,7 @@ git push origin feat/<reference>/<featureName>
 
 ## [3] Feature is ready for testing
 
-Your feature is "almost" finished and you want others (e.g. colleagues or customers) to test it. This is when the [**review** branch](#create-the-review-branch) comes into play, because the **review** is used on the test-system.
+Your feature is "almost" finished and you want others (e.g. colleagues or customers) to test it. This is when the [**review** branch](#create-the-review-branch) comes into play, because the **review** is used on the **staging site**.
 
 ```bash
 # Update review
@@ -103,13 +107,13 @@ git merge --no-ff feat/<reference>/<featureName>
 # Push review to GitHub
 git push origin review
 
-# Push review to test-system
+# Push review to staging site
 git push staging review
 ```
 
 ---
 
-## Feature is done
+## [4] Feature is done
 
 Your feature was tested and the development is done, so you can merge it into the **release** branch. 
 
@@ -159,7 +163,7 @@ git push origin :feat/<reference>/<featureName>
 
 ---
 
-## Feature has a bug
+## [5] Feature has a bug
 
 If you find a bug in one of the features that is ready to be released and the feature was already deleted, you create a bugfix branch from **release** to fix the bug:
 
@@ -172,7 +176,7 @@ git pull origin release
 git checkout -b bug/<reference>/<bugName> release
 ```
 
-If you want to test your fix you merge your bug branch back into **review** so that it can be tested on the test-system:
+If you want to test your fix you merge your bug branch back into **review** so that it can be tested on the **production site**:
 
 ```bash
 # Update review
@@ -185,15 +189,15 @@ git merge --no-ff bug/<reference>/<bugName>
 # Push review to GitHub
 git push origin review
 
-# Push review to test-system
+# Push review to staging site
 git push staging review
 ```
 
 ---
 
-## Release is ready for productive system
+## [6] Release is ready for production site
 
-You added all completed features to your **release** and want to update your productive system (**master**).  
+You added all completed features to your **release** and want to update your **production site** (**master**).  
 
 ```bash
 # Update release branch
@@ -211,10 +215,6 @@ git merge --no-ff release
 # Push master to GitHub
 git push origin master
 
-# Push master to the productive system [a]
+# Push master to the production site [a]
 git push production master
 ```
-
-## Deployment [a]
-
-For now
