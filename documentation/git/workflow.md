@@ -183,7 +183,7 @@ git push staging review
 
 ---
 
-## [4] Feature is done
+## [4] Feature is ready to be released
 
 Your feature was tested and the development is done, so you can merge it into the **release** branch. 
 
