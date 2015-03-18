@@ -10,9 +10,14 @@ The starting point for every project is the **master** branch. And the first thi
 * Clone the project into your development environment (e.g. ```git clone git@github.com:synoa/git.workflow.git```)
 * Add the basic code for your project, for example install Magento or WordPress locally and add it to the **master** when you are done:
   
-  ```
+  ```bash
+  # Add all files to the local master branch
   git add .
+  
+  # Commit the added files
   git commit -m 'Initial commit.'
+  
+  # Push the local master branch to GitHub
   git push origin master
   ```
 
@@ -28,8 +33,15 @@ The starting point for every project is the **master** branch. And the first thi
 
 The **master** is used to update the productive system (your live site), so everything inside the **master** is tested and working. The **review** branch is used to test the developed features on a test-system, but more about this later. For now, we just create the **review** branch once for every repository:
 
-```
+```bash
+# Update master
+git checkout master
+git pull origin master
+
+# Create review from master
 git checkout -b review master
+
+# Push review to GitHub
 git push origin review
 ```
 
@@ -41,7 +53,7 @@ git push origin review
 
 Create a new branch for every feature you want to develop, using the **master** branch as it's parent:
 
-```
+```bash
 git checkout -b feat/<reference>/<featureName> master
 ```
 
@@ -57,7 +69,7 @@ If you have a task with the id "1337" and you want to create a new feature to up
 
 When you are done developing your feature, you can commit your changes:
 
-```
+```bash
 git add .
 git commit -m 'My commit message'
 ```
@@ -66,7 +78,7 @@ git commit -m 'My commit message'
 
 For now the branch you created is only avialable in your local repository, so if you want to share it with others you have to push it to the remote repository:
 
-```
+```bash
 git push origin feat/<reference>/<featureName>
 ```
 
@@ -76,11 +88,19 @@ git push origin feat/<reference>/<featureName>
 
 Your feature is "almost" finished and you want others to test it. This is when the **review** branch comes into play, because the **review** is used on the test-system.
 
-```
+```bash
+# Update review
 git checkout origin review
 git pull origin review
+
+# Merge feature into review
 git merge --no-ff feat/<reference>/<featureName>
+
+# Push review to GitHub
 git push origin review
+
+# Push review to test-system
+git push staging review
 ```
 
 ---
@@ -93,10 +113,15 @@ Your feature was tested and the development is done, so you can merge it into th
 
 The **release** branch has to be created if it doesn't exist yet. If there is a **release** branch already, you can skip this section.
 
-```
+```bash
+# Update master
 git checkout master
 git pull origin master
+
+# Create release from master
 git checkout -b release master
+
+# Push release to GitHub
 git push origin release
 ```
 
@@ -104,10 +129,15 @@ A release consists of 1 or more feature branches and will be deleted once it's m
 
 ### Merge feature into release
 
-```
+```bash
+# Update release
 git checkout release
 git pull origin release
+
+# Merge feature into release
 git merge --no-ff feat/<reference>/<featureName>
+
+# Push release to GitHub
 git push origin release
 ```
 
@@ -115,7 +145,7 @@ git push origin release
 
 After merging the feature into the release, you don't need the feature anymore and you can delete it: 
 
-```
+```bash
 # Delete branch locally
 git branch -d feat/<reference>/<featureName>
 
@@ -129,33 +159,39 @@ git push origin :feat/<reference>/<featureName>
 
 If you find a bug in one of the features that is ready to be released and the feature was already deleted, you create a bugfix branch from **release** to fix the bug:
 
-```
+```bash
+# Update release
 git checkout release
 git pull origin release
+
+# Create bug branch from release
 git checkout -b bug/<reference>/<bugName> release
 ```
 
-If you want to test your fix you merge your bugfix branch back into **review** so that it can be tested on the test-system:
+If you want to test your fix you merge your bug branch back into **review** so that it can be tested on the test-system:
 
-```
+```bash
+# Update review
 git checkout review
 git pull origin review
+
+# Merge bug branch into review
 git merge --no-ff bug/<reference>/<bugName>
 
-# Push to GitHub
+# Push review to GitHub
 git push origin review
 
-# Push to test-system
+# Push review to test-system
 git push staging review
 ```
 
 ---
 
-## Release is ready
+## Release is ready for productive system
 
 You added all completed features to your **release** and want to update your productive system (**master**).  
 
-```
+```bash
 # Update release branch
 git checkout release
 git pull origin release
