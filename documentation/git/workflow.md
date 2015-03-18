@@ -1,10 +1,10 @@
 # synoa's git workflow
 
-## Create the repository
+## [1] New project
 
 The starting point for every project is the **master** branch. And the first thing to do is to create the initial commit directly into the **master** to set the code base for every other developer in the project.
 
-### How to
+### Create the repository
 
 * Create the project on GitHub (e.g. https://github.com/synoa/git.workflow)
 * Clone the project into your development environment (e.g. ```git clone git@github.com:synoa/git.workflow.git```)
@@ -17,7 +17,7 @@ The starting point for every project is the **master** branch. And the first thi
   # Commit the added files
   git commit -m 'Initial commit.'
   
-  # Push the local master branch to GitHub
+  # Push local branch master to GitHub
   git push origin master
   ```
 
@@ -29,9 +29,9 @@ The starting point for every project is the **master** branch. And the first thi
 
 ---
 
-## Create the review branch
+### Create the review branch
 
-The **master** is used to update the productive system (your live site), so everything inside the **master** is tested and working. The **review** branch is used to test the developed features on a test-system, but more about this later. For now, we just create the **review** branch once for every repository:
+The **master** is used to update the productive system, so everything inside the **master** is tested and working. The **review** branch is used to test the developed features on a test-system (more about this later). For now, we just create the **review** branch once for every project as a branch of **master**:
 
 ```bash
 # Update master
@@ -47,7 +47,7 @@ git push origin review
 
 ---
 
-## Start development
+## [2] Start local development
 
 ### Create a new feature
 
@@ -62,10 +62,14 @@ git checkout -b feat/<reference>/<featureName> master
 
 #### Example
 
-If you have a task with the id "1337" and you want to create a new feature to update customers, the branch would be named like this: `feat/1337/updateCustomers`
+If you have a task with the id "1337" and you want to create a new function to update the address of all customers, the branch could be named like this: 
+
+```bash
+git checkout -b feat/1337/updateCustomerAddress master
+```
 
 
-#### Commit your changes
+### Add & commit your changes
 
 When you are done developing your feature, you can commit your changes:
 
@@ -74,9 +78,9 @@ git add .
 git commit -m 'My commit message'
 ```
 
-#### Share the branch on GitHub
+### Share the feature on GitHub
 
-For now the branch you created is only avialable in your local repository, so if you want to share it with others you have to push it to the remote repository:
+For now the branch you created is only avialable in your local repository, so if you want to share it with others you have to push it to the remote repository (which is hosted on GitHub):
 
 ```bash
 git push origin feat/<reference>/<featureName>
@@ -84,9 +88,9 @@ git push origin feat/<reference>/<featureName>
 
 ---
 
-## Feature is ready for testing
+## [3] Feature is ready for testing
 
-Your feature is "almost" finished and you want others to test it. This is when the **review** branch comes into play, because the **review** is used on the test-system.
+Your feature is "almost" finished and you want others (e.g. colleagues or customers) to test it. This is when the **review** branch comes into play, because the **review** is used on the test-system.
 
 ```bash
 # Update review
@@ -207,6 +211,10 @@ git merge --no-ff release
 # Push master to GitHub
 git push origin master
 
-# Push master to the productive system
+# Push master to the productive system [a]
 git push production master
 ```
+
+## Deployment [a]
+
+For now
