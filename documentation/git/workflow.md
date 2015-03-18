@@ -77,9 +77,10 @@ git push origin feat/<reference>/<featureName>
 Your feature is "almost" finished and you want others to test it. This is when the **review** branch comes into play, because the **review** is used on the test-system.
 
 ```
-git checkout review
+git checkout origin review
+git pull origin review
 git merge --no-ff feat/<reference>/<featureName>
-git push review
+git push origin review
 ```
 
 ---
@@ -93,6 +94,8 @@ Your feature was tested and the development is done, so you can merge it into th
 The **release** branch has to be created if it doesn't exist yet. If there is a **release** branch already, you can skip this section.
 
 ```
+git checkout master
+git pull origin master
 git checkout -b release master
 git push origin release
 ```
@@ -103,8 +106,9 @@ A release consists of 1 or more feature branches and will be deleted once it's m
 
 ```
 git checkout release
+git pull origin release
 git merge --no-ff feat/<reference>/<featureName>
-git push release
+git push origin release
 ```
 
 ### Delete feature branch
@@ -126,6 +130,8 @@ git push origin :feat/<reference>/<featureName>
 If you find a bug in one of the features that is ready to be released and the feature was already deleted, you create a bugfix branch from **release** to fix the bug:
 
 ```
+git checkout release
+git pull origin release
 git checkout -b bug/<reference>/<bugName> release
 ```
 
@@ -133,8 +139,14 @@ If you want to test your fix you merge your bugfix branch back into **review** s
 
 ```
 git checkout review
+git pull origin review
 git merge --no-ff bug/<reference>/<bugName>
-git push review
+
+# Push to GitHub
+git push origin review
+
+# Push to test-system
+git push staging review
 ```
 
 ---
@@ -144,7 +156,12 @@ git push review
 You added all completed features to your **release** and want to update your productive system (**master**).  
 
 ```
+git checkout release
+git pull origin release
+
 git checkout master
+git pull origin master
+
 git merge --no-ff release
 # @TODO: add tags
 git push master
