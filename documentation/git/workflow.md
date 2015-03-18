@@ -267,7 +267,7 @@ git push staging review
 
 ## [6] Release is ready for production site
 
-You have added all completed features to your **release** and want to update your **production site** with the content from **master**.  
+You have added all completed features to your **release** and want to update your **production site** with the content from **master**. 
 
 ```bash
 # Update release branch
@@ -293,3 +293,17 @@ git push origin master
 # Push master to the production site [@see #prepare-deployment]
 git push production master
 ```
+
+If everything is done you can delete your **release** branch because we don't need it anymore. 
+
+```bash
+# Delete release locally
+git branch -d release
+
+# Delete release on GitHub
+git push origin :release
+```
+
+### Hint
+
+* When you decide to update the **production site** you should inform everyone in your team with access to the **release** branch, that they are not allowed to merge any features / bug-fixes into the **release** that are not already merged into **release** branch while you are performing the update. 
