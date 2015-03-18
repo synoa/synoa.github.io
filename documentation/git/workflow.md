@@ -52,7 +52,10 @@ git push origin review
 #### Server
 
 * Create a **repository** folder on your server
-* Clone your repository into the **repository** folder: `git clone --bare https://github.com/<user>/<repositoryName>`
+* Clone your repository into the **repository** folder
+  ```bash
+  git clone --bare https://github.com/<user>/<repositoryName>
+  ```
 * Create a file called `post-receive` inside the **hooks** folder (`repository/<repositoryName>/hooks`) and add the following content: 
   ```bash
   #!/bin/sh
@@ -75,6 +78,23 @@ git push origin review
       fi
   done
   ```
+* Make the `post-receive` file executable
+  ```bash
+  chmod +x post-receive
+  ```
+  
+#### Local
+
+* Add the bare repository from the server as a new remote to your local project
+  ```bash
+  git remote add <remoteName> ssh://<user>@<domain><remoteRepositoryPath>
+  ```
+
+##### Example
+
+```bash
+git remote add staging ssh://TimPietrusky@synoa.de/var/repository/<repositoryName>
+```
 
 ---
 
@@ -104,8 +124,6 @@ git checkout -b feat/1337/deleteCustomerAddresses master
 ```bash
 git status
 ```
-
-#### Example
 
 ---
 
