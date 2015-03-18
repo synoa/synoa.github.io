@@ -93,12 +93,21 @@ git checkout -b feat/<reference>/<featureName> master
 
 #### Example
 
-If you have a task with the id "1337" and you want to create a new function to update the address of all customers, the branch could be named like this: 
+If you have a task with the id "1337" and you want to create a new function to delete the addresses of all customers, the branch could be named like this: 
 
 ```bash
-git checkout -b feat/1337/updateCustomerAddress master
+git checkout -b feat/1337/deleteCustomerAddresses master
 ```
 
+### See your changes
+
+```bash
+git status
+```
+
+#### Example
+
+---
 
 ### Add & commit your changes
 
@@ -108,6 +117,16 @@ When you are done developing your feature, you can commit your changes:
 git add .
 git commit -m 'My commit message'
 ```
+
+---
+
+### Revert a change
+
+```bash
+git checkout -- <changedFile>
+```
+
+---
 
 ### Share the feature on GitHub
 
