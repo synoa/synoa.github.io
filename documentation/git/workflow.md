@@ -90,7 +90,7 @@ Use the following two steps for every system you use for your project (e.g. a **
   
 #### Local
 
-* Add the bare repository from the server as a new remote to your local project
+Add the bare repository from the server as a new remote to your local project
   
   ```bash
   git remote add <remoteName> ssh://<user>@<domain><remoteRepositoryPath>
