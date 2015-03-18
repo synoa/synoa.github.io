@@ -45,9 +45,36 @@ git checkout -b review master
 git push origin review
 ```
 
+---
+
 ### Prepare deployment
 
+#### Server
 
+* Create a **repository** folder on your server
+* Clone your repository into the **repository** folder: `git clone --bare https://github.com/<user>/<repositoryName>`
+* Create a file called `post-receive` inside the **hooks** folder (`repository/<repositoryName>/hooks`) and add the following content: 
+  ```bash
+  #!/bin/sh
+
+  # Path to the bare git repo for the project
+  repository_path=<repositoryPath>
+
+  # Path to the project itself
+  project_path=<projectPath>
+
+  # Iterate over all branches (git push --all)
+  while read oldrev newrev refname
+  do
+      # Get the name of the current branch 
+      branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+
+      # Checkout <branchName>
+      if [ "$branch" = "<branchName>" ]; then
+        git --work-tree=$project_path --git-dir=$repository_path checkout -f <branchName>
+      fi
+  done
+  ```
 
 ---
 
@@ -197,7 +224,7 @@ git push staging review
 
 ## [6] Release is ready for production site
 
-You added all completed features to your **release** and want to update your **production site** (**master**).  
+You have added all completed features to your **release** and want to update your **production site** with the content from **master**.  
 
 ```bash
 # Update release branch
@@ -210,6 +237,7 @@ git pull origin master
 
 # Merge release into master
 git merge --no-ff release
+
 # @TODO: add tags
 
 # Push master to GitHub
