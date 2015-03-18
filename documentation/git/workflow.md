@@ -90,7 +90,7 @@ git push origin feat/<reference>/<featureName>
 
 ## [3] Feature is ready for testing
 
-Your feature is "almost" finished and you want others (e.g. colleagues or customers) to test it. This is when the **review** branch comes into play, because the **review** is used on the test-system.
+Your feature is "almost" finished and you want others (e.g. colleagues or customers) to test it. This is when the [**review** branch](#create-the-review-branch) comes into play, because the **review** is used on the test-system.
 
 ```bash
 # Update review
