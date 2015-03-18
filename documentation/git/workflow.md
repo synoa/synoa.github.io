@@ -156,13 +156,21 @@ git push staging review
 You added all completed features to your **release** and want to update your productive system (**master**).  
 
 ```
+# Update release branch
 git checkout release
 git pull origin release
 
+# Update master branch
 git checkout master
 git pull origin master
 
+# Merge release into master
 git merge --no-ff release
 # @TODO: add tags
-git push master
+
+# Push master to GitHub
+git push origin master
+
+# Push master to the productive system
+git push production master
 ```
