@@ -177,7 +177,7 @@ git merge --no-ff feat/<reference>/<featureName>
 # Push review to GitHub
 git push origin review
 
-# Push review to staging site
+# Push review to staging site [@see #prepare-deployment]
 git push staging review
 ```
 
@@ -259,7 +259,7 @@ git merge --no-ff bug/<reference>/<bugName>
 # Push review to GitHub
 git push origin review
 
-# Push review to staging site
+# Push review to staging site [@see #prepare-deployment]
 git push staging review
 ```
 
@@ -281,11 +281,15 @@ git pull origin master
 # Merge release into master
 git merge --no-ff release
 
-# @TODO: add tags
+# Add a tag for this release
+git tag -a <tagName>
+
+# Push the tag to GitHub
+git push origin <tagName>
 
 # Push master to GitHub
 git push origin master
 
-# Push master to the production site [a]
+# Push master to the production site [@see #prepare-deployment]
 git push production master
 ```
