@@ -49,7 +49,7 @@ git push origin review
 
 ### Prepare deployment
 
-Use the following two steps for every system you use for your project (e.g. a **staging server** to test the developments and **production server** for the end users). 
+Use the following two steps for every system you use for your project (e.g. a **staging site** to test the developments and **production site** for the end users). 
 
 #### Server
 
@@ -246,7 +246,7 @@ git pull origin release
 git checkout -b bug/<reference>/<bugName> release
 ```
 
-If you want to test your fix you merge your bug branch back into **review** so that it can be tested on the **production site**:
+If you want to test your fix you merge your bug branch back into **review** so that it can be tested on the **staging site**:
 
 ```bash
 # Update review
