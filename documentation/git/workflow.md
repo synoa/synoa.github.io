@@ -168,7 +168,7 @@ Your feature is "almost" finished and you want others (e.g. colleagues or custom
 
 ```bash
 # Update review
-git checkout origin review
+git checkout review
 git pull origin review
 
 # Merge feature into review
