@@ -246,22 +246,9 @@ git pull origin release
 git checkout -b bug/<reference>/<bugName> release
 ```
 
-If you want to test your fix you merge your bug branch back into **review** so that it can be tested on the **staging site**:
+If you want to test your fix you merge your bug branch back into **review** so that it can be tested on the **staging site**: [[3] Feature is ready for testing](#3-feature-is-ready-for-testing)
 
-```bash
-# Update review
-git checkout review
-git pull origin review
-
-# Merge bug branch into review
-git merge --no-ff bug/<reference>/<bugName>
-
-# Push review to GitHub
-git push origin review
-
-# Push review to staging site [@see #prepare-deployment]
-git push staging review
-```
+If you want to update your **production site** your bug branch has to be merged into the **release**: [Merge feature into release](#merge-feature-into-release)
 
 ---
 
