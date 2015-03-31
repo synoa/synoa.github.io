@@ -303,6 +303,9 @@ git pull origin master
 # Merge release into master
 git merge --no-ff release
 
+# Check next tag version
+git tag
+
 # Add a tag for this release
 git tag -a <tagName>
 
