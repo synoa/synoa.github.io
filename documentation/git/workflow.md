@@ -139,6 +139,11 @@ git remote add staging ssh://timpietrusky@synoa.de/var/repository/myAwesomeProje
 Create a new branch for every feature you want to develop, using the **master** branch as it's parent:
 
 ```bash
+# Update master 
+git checkout master
+git pull origin master
+
+# Create the feature branch from master
 git checkout -b feat/<reference>/<featureName> master
 ```
 
