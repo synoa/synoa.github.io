@@ -109,7 +109,7 @@ You have a project called **myAwesomeProject**:
   repository_path=/var/repository/myAwesomeProject.git
 
   # Path to the project itself
-  project_path=/var/www/project-x
+  project_path=/var/www/myAwesomeProject
 
   # Iterate over all branches (git push --all)
   while read oldrev newrev refname
