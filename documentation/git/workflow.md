@@ -96,10 +96,38 @@ Add the bare repository from the server as a new remote to your local project
   git remote add <remoteName> ssh://<user>@<domain><remoteRepositoryPath>
   ```
 
-##### Example
+#### Example
+
+You have a project called **myAwesomeProject**:
+
+##### Server
+
+  ```bash
+  #!/bin/sh
+
+  # Path to the bare git repo for the project
+  repository_path=/var/repository/myAwesomeProject.git
+
+  # Path to the project itself
+  project_path=/var/www/project-x
+
+  # Iterate over all branches (git push --all)
+  while read oldrev newrev refname
+  do
+      # Get the name of the current branch 
+      branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+
+      # Checkout master
+      if [ "$branch" = "master" ]; then
+        git --work-tree=$project_path --git-dir=$repository_path checkout -f master
+      fi
+  done
+  ```
+  
+##### Local
 
 ```bash
-git remote add staging ssh://timpietrusky@synoa.de/var/repository/project-x.git
+git remote add staging ssh://timpietrusky@synoa.de/var/repository/myAwesomeProject.git
 ```
 
 ---
@@ -124,6 +152,8 @@ If you have a task with the id "1337" and you want to create a new function to d
 ```bash
 git checkout -b feat/1337/deleteCustomerAddresses master
 ```
+
+---
 
 ### See your changes
 
