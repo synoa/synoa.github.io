@@ -303,6 +303,9 @@ git pull origin master
 # Merge release into master
 git merge --no-ff release
 
+# Get branches / tags from GitHub
+git fetch origin --tags
+
 # Check next tag version
 git tag
 
