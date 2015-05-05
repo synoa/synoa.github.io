@@ -129,6 +129,31 @@ You have a project called **myAwesomeProject**:
 ```bash
 git remote add staging ssh://timpietrusky@synoa.de/var/repository/myAwesomeProject.git
 ```
+---
+
+### Problems
+
+Maybe you can not push to your new bare repo with error message like
+
+```bash
+bash: git-receive-pack: command not found
+```
+
+Make sure that the comman git-receive-pack is in path. First check the path of the command
+
+```bash
+which git-receive-pack
+```
+This path should also be in output of following line
+
+```bash
+ssh you@remotemachine echo \$PATH
+```
+If not add the missing path with in _.bashrc_
+
+```bash
+export PATH=<missing path>:$PATH
+```
 
 ---
 
