@@ -139,18 +139,24 @@ Maybe you can not push to your new bare repo with error message like
 bash: git-receive-pack: command not found
 ```
 
-Make sure that the comman git-receive-pack is in path. First check the path of the command
+Make sure that the command git-receive-pack is in path. First check the path of the command
 
 ```bash
 which git-receive-pack
 ```
-This path should also be in output of following line
-
+Output:
+```bash
+<path/to/missing/command>git-receive-pack
+```
+This path should also be in the output of following line
 ```bash
 ssh you@remotemachine echo \$PATH
 ```
-If not add the missing path with in _.bashrc_
-
+Outputs paths seperated by an _:_
+```bash
+first/path:second/path:third/path
+```
+If path is not included add the missing path in _.bashrc_ file with
 ```bash
 export PATH=<missing path>:$PATH
 ```
