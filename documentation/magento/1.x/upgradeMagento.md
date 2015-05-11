@@ -195,6 +195,10 @@ CONNECT ERROR: Failed to open file /var/www/shop.local/security/downloader/.cach
 ```
 Even if it seems its all upgraded and it is all running you missed something. Magento connect says there are no upgrades, but you missed something.
 
+### Diff the index.php and .htaccess file
+
+Diff the ```ìndex.php``` and the ```.htaccess``` file and decide which changes you will take again
+
 ### Enable Debug options
 
 * Enable Exception Logging
