@@ -358,7 +358,7 @@ magerun.phar db:dump --compression="gzip"
 # Move your sql dump out of doc root
 mv <dumpname>.sql.gz ../../backups
 
-# Push to production
+# Push master to the production site [@see #prepare-deployment]
 git push production master
 
 # Run DB Update Scripts
@@ -384,9 +384,6 @@ magerun.phar sys:maintenance
 
 # Test
 Test your changes on live system
-
-# Push master to the production site [@see #prepare-deployment]
-git push production master
 ```
 
 If everything is done you can delete your **release** branch because we don't need it anymore. 
