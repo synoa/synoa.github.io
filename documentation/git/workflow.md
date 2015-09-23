@@ -381,10 +381,10 @@ rm -rf <magento_root>/var/locks/*
 
 # Disable maintenance
 magerun.phar sys:maintenance
-
-# Test
-Test your changes on live system
 ```
+
+### Test
+Test your changes on live system
 
 If everything is done you can delete your **release** branch because we don't need it anymore. 
 
