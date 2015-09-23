@@ -372,7 +372,6 @@ magerun.phar cache:flush
 magerun.phar index:reindex:all
 
 # Empty directories
-
 rm -rf <magento_root>/var/cache/*
 rm -rf <magento_root>/var/session/*
 
