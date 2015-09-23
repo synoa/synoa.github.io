@@ -349,6 +349,44 @@ git push origin <tagName>
 # Push master to GitHub
 git push origin master
 
+# Activate maintenance
+magerun.phar sys:maintenance
+
+# Create a SQL Dump
+
+magerun.phar db:dump --compression="gzip"
+
+# Move Dump
+Move your sql dump out of doc root
+
+mv <dumpname>.sql.gz ../../backups
+
+# Push to production
+git push production master
+
+# Run DB Update Scripts
+magerun.phar sys:setup:run
+
+# Clear Cache
+magerun.phar cache:clean
+
+magerun.phar cache:flush
+
+# Build indexes
+magerun.phar index:reindex:all
+
+# Empty directories
+
+* var/cache
+* var/session
+* var/locks
+
+# Disable maintenance
+magerun.phar sys:maintenance
+
+# Test
+Test your changes on live system
+
 # Push master to the production site [@see #prepare-deployment]
 git push production master
 ```
