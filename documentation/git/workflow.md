@@ -353,12 +353,9 @@ git push origin master
 magerun.phar sys:maintenance
 
 # Create a SQL Dump
-
 magerun.phar db:dump --compression="gzip"
 
-# Move Dump
-Move your sql dump out of doc root
-
+# Move your sql dump out of doc root
 mv <dumpname>.sql.gz ../../backups
 
 # Push to production
@@ -369,7 +366,6 @@ magerun.phar sys:setup:run
 
 # Clear Cache
 magerun.phar cache:clean
-
 magerun.phar cache:flush
 
 # Build indexes
@@ -377,9 +373,11 @@ magerun.phar index:reindex:all
 
 # Empty directories
 
-* var/cache
-* var/session
-* var/locks
+rm -rf <magento_root>/var/cache/*
+rm -rf <magento_root>/var/session/*
+
+# Empty directory var/locks if it exists and not empty
+rm -rf <magento_root>/var/locks/*
 
 # Disable maintenance
 magerun.phar sys:maintenance
