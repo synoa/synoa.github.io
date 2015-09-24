@@ -349,6 +349,10 @@ git push origin <tagName>
 # Push master to GitHub
 git push origin master
 
+# Disable OS Cronjob
+# Just remove the right to execute
+chmod 644 scheduler_cron.sh
+
 # Activate maintenance
 magerun.phar sys:maintenance
 
@@ -380,6 +384,9 @@ rm -rf <magento_root>/var/locks/*
 
 # Disable maintenance
 magerun.phar sys:maintenance
+
+# Enable cronjob again
+chmod +x scheduler_cron.sh
 ```
 
 ### Test
