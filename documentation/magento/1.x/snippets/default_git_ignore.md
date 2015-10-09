@@ -24,6 +24,9 @@ LICENSE.txt
 LICENSE_EE*
 RELEASE_NOTES.txt
 
+# ignore development tests
+dev/*
+
 # ignore product images
 media/catalog/product/
 
@@ -99,5 +102,6 @@ maintenance.flag
 !lib/.htaccess
 !errors/.htaccess
 !app/.htaccess
+!dev/.htaccess
 
 # custom settings here, CHECK THAT YOU DONT IGNORE .htaccess FILES
