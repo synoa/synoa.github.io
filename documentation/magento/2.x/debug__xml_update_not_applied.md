@@ -16,12 +16,7 @@ Example output:
 ```txt
 [2016-02-12 09:39:17] main.CRITICAL: Broken reference: the 'div.sidebar.main' tries to reorder itself towards 'main', but their parents are different: 'main.content' and 'columns' respectively. [] []
 
-[2016-02-12 09:36:31] main.INFO: Theme layout update file
-'app/design/frontend/Vendor/theme/Magento_Theme/page_layout/2columns-left.xml'
-is not valid.
-Double hyphen within comment: <!--  <referenceContainer name="page.main"
-htmlClass="
- Line: 10 [] []
+[2016-02-12 09:36:31] main.INFO: Theme layout update file 'app/design/frontend/Vendor/theme/Magento_Theme/page_layout/2columns-left.xml' is not valid. Double hyphen within comment: <!--  <referenceContainer name="page.main" htmlClass=" Line: 10 [] []
 ```
 
 While still being rather cryptic this log can help a lot finding invalid XML or
