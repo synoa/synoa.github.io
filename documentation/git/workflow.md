@@ -348,7 +348,12 @@ git push origin <tagName>
 
 # Push master to GitHub
 git push origin master
+```
 
+Open the network graph and check if the push to GitHub was successful. (e.g. https://github.com/synoa/<repository>/network)
+
+
+```bash
 # Disable OS Cronjob
 # Just remove the right to execute
 chmod 644 scheduler_cron.sh
