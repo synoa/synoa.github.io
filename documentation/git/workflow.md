@@ -350,7 +350,7 @@ git push origin <tagName>
 git push origin master
 ```
 
-Open the network graph and check if the push to GitHub was successful. (e.g. https://github.com/synoa/<repository>/network)
+Open the network graph and check if the push to GitHub was successful. (e.g. `https://github.com/synoa/<repository>/network`)
 
 
 ```bash
