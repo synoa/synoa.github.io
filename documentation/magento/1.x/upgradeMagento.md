@@ -151,7 +151,7 @@ index df20d89..e0539c6 100644
 @@ -560,7 +560,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
          $checksumOk = $header['checksum'] == $checksum;
          if (isset($header['name']) && $checksumOk) {
- 
+
 -            if (!($header['name'] == '././@LongLink' && $header['type'] == 'L')) {
 +            if (!(trim($header['name']) == '././@LongLink' && $header['type'] == 'L')) {
                  $header['name'] = trim($header['name']);
@@ -164,14 +164,14 @@ index df20d89..e0539c6 100644
 Go into the root folder of your Magento installation and run the following:
 
 ```bash
-find . -type f -exec chmod 644 {} \;
+find . -type f -exec chmod 664 {} \;
 find . -type d -exec chmod 755 {} \;
 find ./var -type d -exec chmod 777 {} \;
 find ./var -type f -exec chmod 666 {} \;
 find ./media -type d -exec chmod 777 {} \;
 find ./media -type f -exec chmod 666 {} \;
 chmod 777 ./app/etc
-chmod 644 ./app/etc/*.xml
+chmod 664 ./app/etc/*.xml
 ```
 
 ### Update magento
@@ -236,8 +236,8 @@ tail -f var/log/*
 
 Testing your development all use cases. That means:
 
-* all magento features 
-* all custom features which are added with custom modules. 
+* all magento features
+* all custom features which are added with custom modules.
 * We have to ensure that all features which should be disabled are not enabled again with the upgrade
 
 Best practice is automatic testing but if you have to test manually you should grab a list with tests and mark them as valid or invalid.

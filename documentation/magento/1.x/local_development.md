@@ -1,6 +1,6 @@
 # Code
 
-Clone the project you want to work with to your local machine. 
+Clone the project you want to work with to your local machine.
 
 ```bash
 # Example
@@ -41,12 +41,12 @@ sudo nano /etc/apache2/sites-enabled/myproject.local
 sudo service apache2 reload
 ```
 
-If your `DocumentRoot` exists and you open `myproject.local/` in your browser, you should see something. 
+If your `DocumentRoot` exists and you open `myproject.local/` in your browser, you should see something.
 
 
 # MySQL-Backup
 
-Before you create a MySQL-backup yourself you should checkout the README.md of the project. Maybe there is a backup already. 
+Before you create a MySQL-backup yourself you should checkout the README.md of the project. Maybe there is a backup already.
 
 ## Export from production db
 
@@ -83,15 +83,15 @@ TRUNCATE TABLE `log_visitor_info`;
 ## Change the URLs
 
 *Note*: To update multiple values, e.g. for a multi-language Shop, you can use the MySQL `replace`
-function like shown below. 
+function like shown below.
 
 ```sql
 # syntax
-update [table_name] set [field_name] = 
+update [table_name] set [field_name] =
 replace([field_name],'[string_to_find]','[string_to_replace]');
 
-# real world example 
-update core_config_data 
+# real world example
+update core_config_data
 set value = replace(value, 'http://liveshop.tld', 'http://localshop.tld')
 where path = "web/unsecure/base_url";
 ```
@@ -141,14 +141,14 @@ update core_config_data set value = "url" where config_id = x and path = "admin/
 Go into the root folder of your Magento installation and run the following:
 
 ```bash
-find . -type f \-exec chmod 644 {} \;
+find . -type f \-exec chmod 664 {} \;
 find . -type d \-exec chmod 755 {} \;
 find ./var -type d \-exec chmod 777 {} \;
 find ./var -type f \-exec chmod 666 {} \;
 find ./media -type d \-exec chmod 777 {} \;
 find ./media -type f \-exec chmod 666 {} \;
 chmod 777 ./app/etc
-chmod 644 ./app/etc/*.xml
+chmod 664 ./app/etc/*.xml
 ```
 
 # local.xml
