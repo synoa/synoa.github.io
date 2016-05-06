@@ -33,7 +33,7 @@ This generated a keystore file with the default password `importkey`.
 @see [Further information](http://www.agentbob.info/agentbob/79-AB.html).
 
 
-## Create a truststore by using your <certificate.pem>: 
+## Create a truststore by using your `<certificate.pem>`: 
 
 ```
 keytool -import -file <certificate.pem> -alias CAAlias -keystore truststore.ts -storepass StorePass
