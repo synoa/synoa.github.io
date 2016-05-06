@@ -16,7 +16,7 @@ openssl x509 -in <path to certificate.pem> -inform PEM -out <certificate.der> -o
 
 ## Create the KeyStore
 
-Download the `ImportKey.java` class and compile it:
+[Download the `ImportKey.java`](https://github.com/synoa/synoa.github.io/blob/master/documentation/java/ImportKey.java) class and compile it:
 
 ```
 javac ImportKey.java
