@@ -53,3 +53,44 @@ Click on "Create" (`Erstellen`) to create the new server. You'll see some inform
 | Language: de
 +===================================+
 ```
+
+### Confiure the (real) domain
+
+After setting everything up you can login to the cPanel of the host. If you do not know the URL click "Account overview" in the sidebar to see a list of all accounts. Here you'll find a link to the cPanel.
+
+Login with the username and password previously assigned during creation and click "Addon Domains" (`Add-on Domänen`). Here you can assign a Domain and map it to a specific folder, e.g. `customer.staging.synoa.net` to the server path `home/customer/public_html/customer`. Save and test your configuration by visiting http://customer.staging.synoa.net
+
+### Enable htaccess protection
+
+From the cPanel home screen, click "Directory security" (`Datenschutz für Verzeichnis`). Here you can choose a folder from the server and assign a username and password to it. This will create a `passwd` file which holds the `user:password` configuration. To make htaccess protection work add the following to the top of the htaccess file.
+
+```txt
+############################################
+##
+## Protect Access to website
+
+   AuthType Basic
+   AuthName "Password Protected Area"
+   AuthUserFile "/home/customer/.htpasswds/public_html/stage/passwd"
+   Require valid-user
+
+```
+
+Update the `post-receive` hook to pre-pand this block to the htaccess file for staging areas.
+
+### Import SSH Keys
+
+From the cPanel home screen click "SSH Access" (`SSH-Zugriff`). Here you can import the public keys from all developers. You can either take them from the `~/.ssh` directory of an existing server you have access to or ask your colleages to send them in. To grab the public key run the following command.
+
+```sh
+$ cat ~/.ssh/id_rsa.pub
+```
+
+Click "Manage SSH keys" (`SSH-Schlüssel verwalten`) and then "Import key" (`Schlüssel importieren`). Assign a name to the key and paste the SSH keys into the last text box titled "Paste public key into this field" (`Fügen Sie den öffentlichen Schlüssel in das folgende Textfeld ein`). Click import and the key is imported to the server.
+
+On the SSH overview page you can now manage the keys. Click "manage" (`Verwalten`) and then "autorize". This tells the Server to accept this key for SSH connection. Test your connection with the following command.
+
+```sh
+$ ssh user@IP
+```
+You can find the IP in the server information you copied into the call in the first step. You may get an error message stating your account doesn't allow SSH access. According to our hosting partner this is due to a bug in cPanel. Notify your PM and they will reach out to the hosting partner.
