@@ -41,6 +41,32 @@ In Camel terminology, the request, reply and exception messages are called _in_,
 There are concrete classes that implement the Exchange interface for each Camel-supported communications technology.
 An implementation might call ```exchange.getIn()``` to get the input message and process it. If an error occurs during processing then the method can call ```exchange.setException()```.
 
+### Simple Class Diagramm of an Exchange
+
+```
++-------------------------------------+
+| Exchange                            |
++-------------------------------------+
+| properties: Map <String,Object>     |
+|     +----------------------------+  |
+| in: | Message                    |  |
+|     +----------------------------+  |
+|     | header: Map<String,Object> |  |
+|     | body: Object               |  |
+|     +----------------------------+  |
++-------------------------------------+
+```
+
+We see that an exchange holds 2 attributes:
+
+* properties (holds data which will not be provided to 3rd party services
+* in (holds an Message Object)
+
+The Message object has 2 Attributes
+
+* header (holds also data which will be provided to 3rd party services)
+* body (The real content of the message)
+
 ## Processor
 
 The Processor interface represents a class that processes a message.
