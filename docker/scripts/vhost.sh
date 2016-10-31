@@ -6,7 +6,7 @@ version="0.0.1"
 author="Synoa GmbH"
 author_url="<https://synoa.de>"
 github_url="https://github.com/synoa/synoa.github.io"
-github_issue_title="[ssl.sh]"
+github_issue_title="[vhost.sh]"
 github_issues="$github_url/issues"
 program_name="$(basename "$0")"
 
@@ -19,12 +19,30 @@ reset="\e[;0m"
 # Check sign and cross sign
 checksign="$green✓$reset "
 cross="$red❌$reset "
-
+warnsign="$blue⚠$reset "
 # script specific variables
 # verbose mode
 verbose=""
 # default output directory
 default_out="$(pwd)"
+
+write_message() {
+  if [ "$verbose" != "" ]; then
+    printf "%s " "$@"
+    printf "%s\n" ""
+  fi
+}
+
+write_error() {
+  echo -e "[$cross] ERROR: " "$@"
+  exit 1
+}
+
+write_warn() {
+  if [ "$verbose" != "" ]; then
+    echo -e "[$warnsign]" "$@"
+  fi
+}
 
 # Print out version information
 version() {
@@ -53,24 +71,6 @@ usage() {
     exit 0
 }
 
-write_message() {
-  if [ "$verbose" != "" ]; then
-    printf "%s\g " "$@"
-    printf "%s\n" ""
-  fi
-}
-
-write_error() {
-  echo -e "[$cross] ERROR: " "$@"
-  exit 1
-}
-
-write_warn() {
-  if [ "$verbose" != "" ]; then
-    echo -e "[$blue""WARNING$reset]" "$@"
-  fi
-}
-
 # generate a key file
 generate_key() {
   # Ask before overwriting an existing key. Overwriting an existing key can break virtual hosts!
@@ -89,7 +89,7 @@ generate_key() {
   if [ ! -f "$default_out/$app_name.key" ]; then
     write_error "Key generation failed. Exit code from openssl: $?"
   else
-    write_message "$checksign Done! New Key generated in file $default_out/$app_name.key"
+    write_message "New Key generated in file $default_out/$app_name.key"
   fi
 }
 
