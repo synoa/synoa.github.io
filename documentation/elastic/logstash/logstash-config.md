@@ -1,7 +1,7 @@
 # Logstash Configuration
 > Notes on how to configure Logstash parsing
 
-Logstash uses its own Format for writing configuration files. Basically, one always defines three "blocks": `input`, `filter`, and `outpit`. `filter` may be omitted if logs should not be filtered.
+Logstash uses its own Format for writing configuration files. Basically, one always defines three "blocks": `input`, `filter`, and `output`. `filter` may be omitted if logs should not be filtered.
 
 ```
 input {
