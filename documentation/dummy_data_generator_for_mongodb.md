@@ -1,5 +1,13 @@
+* Open Studio 3T
+* Select your database / collection
+* Open IntelliShell
+* Copy / pase the following code and execute it
+
 ```javascript
-db.bettmer.remove({});
+
+var collection = db.bettmer;
+
+collection.remove({});
 
 
 var amount_articles = 50000;
@@ -36,7 +44,7 @@ for(var i = 0; i <= amount_articles; i++) {
     article["attribute" + j] = randomString(attribute_value_max);
   }
   
-  db.bettmer.insert(article);
+  collection.insert(article);
 }
 
 
